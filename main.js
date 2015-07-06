@@ -18,11 +18,8 @@ function create() {
  background.smoothed = false;
  background.scale.setTo(4, 4);
 
- project = new Project(7);
+ project = new Project(17, 6, "PROJECT-8");
  var developer_1 = new Developer(230, 258);
- var point = new FPoint(315, 171, project);
- new Project(8);
- new Project(9);
 }
 
 var delta = 1.0;
