@@ -16,7 +16,7 @@ var FPoint = function (posX, posY, project) {
  updatable.push(this);
 }
 
-FPoint.prototype.update = function (delta) { 
+FPoint.prototype.update = function () { 
  var xDone, yDone;
  if(Math.abs(this.sprite.x - this.targetX) < this.SPEEDX*1.1) {
   this.sprite.x = this.targetX;

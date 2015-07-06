@@ -6,11 +6,11 @@ var Project = function (width, height, name) {
  var place = 0;
  for(; place < posA.length; place++)
   if(posA[place]) break;
-
+ 
  posA[place] = false;
 
  // initializes main project button and text
- var button = game.add.button(posX[place]-8, posY[place], 'button_project', this.incMotivation, this, 1, 1, 0);
+ var button = game.add.button(posX[place]-8, posY[place], 'button_project', function() {}, this, 1, 1, 0);
  button.scale.setTo(4, 4);
  button.smoothed = false; 
  var text = game.add.bitmapText(posX[place], posY[place]+10, 'visitor2', name, 16);
