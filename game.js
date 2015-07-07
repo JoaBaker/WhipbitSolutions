@@ -13,9 +13,7 @@ Game.prototype = {
  },
 
  create : function() {
-  this.background = game.add.sprite(0, 0, 'level_1');
-  this.background.smoothed = false;
-  this.background.scale.setTo(4, 4);
+  this.background = createSprite(0, 0, 'level_1');
 
   developers.push(new Developer(230, 258));
   new Project(15, 5, "PROJECT-1");
@@ -25,9 +23,7 @@ Game.prototype = {
   
   this.stats = new Stats();
   new BottomUI();
-  var windowBackground = game.add.sprite(0, 0, 'window_background');
-  windowBackground.smoothed = false;
-  windowBackground.scale.setTo(4, 4);
+  var windowBackground = createSprite(0, 0, 'window_background');
   windowOverlay = game.add.group(); 
   windowOverlay.add(windowBackground);
   windowOverlay.visible = false;

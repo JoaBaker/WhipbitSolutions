@@ -10,18 +10,16 @@ var Project = function (width, height, name) {
  posA[place] = false;
 
  // initializes main project button and text
- var button = game.add.button(posX[place]-8, posY[place], 'button_project', function() {}, this, 1, 1, 0);
- button.scale.setTo(4, 4);
- button.smoothed = false; 
- var text = game.add.bitmapText(posX[place], posY[place]+10, 'visitor2', name, 16);
+ var button = createButton(posX[place]-8, posY[place], 'button_project', function() {}, this, 1, 1, 0);
+ var text = createText(posX[place], posY[place]+10, name, 16);
  
  // initializes background for points
- var bd = game.add.bitmapData(width*4, height*4);
+ var bd = game.add.bitmapData(width, height);
  bd.ctx.beginPath();
- bd.ctx.rect(0, 0, width*4, height*4);
+ bd.ctx.rect(0, 0, width, height);
  bd.ctx.fillStyle = '#000000';
  bd.ctx.fill();
- this.backgroundSprite = game.add.sprite(posX[place], posY[place]+30, bd);
+ this.backgroundSprite = createSprite(posX[place], posY[place]+30, bd);
  this.backgroundSprite.alpha = 0.1;
 
  // various points variables

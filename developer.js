@@ -2,15 +2,11 @@ var Developer = function(posX, posY) {
  this.posX = posX; this.posY = posY;
 
  // creates character
- var sprite = game.add.sprite(posX, posY, 'developer_1');
- sprite.smoothed = false;
- sprite.scale.setTo(4, 4);
+ createSprite(posX, posY, 'developer_1');
 
  // initializes whip button & text
- var button = game.add.button(posX+55, posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0);
- button.scale.setTo(4, 4);
- button.smoothed = false; 
- var text = game.add.bitmapText(posX+64, posY+207, 'visitor2', 'WHIP', 16);
+ createButton(posX+55, posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0);
+ createText(posX+64, posY+207, 'WHIP', 16);
 
  // initializes background loader graphics
  var boundary = game.add.bitmapData(64, 4);
