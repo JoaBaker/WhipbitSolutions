@@ -1,6 +1,6 @@
 var Developer = function(posX, posY) {
  this.posX = posX; this.posY = posY;
- 
+
  // creates character
  var sprite = game.add.sprite(posX, posY, 'developer_1');
  sprite.smoothed = false;
@@ -25,9 +25,9 @@ var Developer = function(posX, posY) {
  bd.ctx.rect(0, 0, 1, 1);
  bd.ctx.fillStyle = '#000000';
  bd.ctx.fill();
- this.fPointLoader = game.add.sprite(posX+60, posY+5, bd);
+ this.fPointLoader = game.add.sprite(posX+60, posY+9, bd);
  this.fPointLoaderProgress = 16;
- var fb = game.add.sprite(posX+60, posY+5, boundary);
+ var fb = game.add.sprite(posX+60, posY+9, boundary);
  fb.alpha = .2;
 
  // initializes motivationSlider
@@ -36,19 +36,21 @@ var Developer = function(posX, posY) {
  var mb = game.add.sprite(posX+60, posY+15, boundary);
  mb.alpha = .2;
 
- this.develop();
+ this.timer = createTimer(false);
+ this.timer.loop(50, this.develop, this);
+ this.timer.start();
 }
 
 Developer.prototype.develop = function() {
  this.updateLoader();
  this.updateMotivation();
- game.time.events.add(50, this.develop, this);
 }
 
 Developer.prototype.updateLoader = function() {
  this.fPointLoaderProgress -= this.motivation/20 + .3;
  if(this.fPointLoaderProgress <= 0) {
-  new FPoint(this.posX+65, this.posY, project); 
+  this.curProject = project;
+  new FPoint(this.posX+65, this.posY, this.curProject); 
   this.fPointLoaderProgress = 16;
  }
  this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);

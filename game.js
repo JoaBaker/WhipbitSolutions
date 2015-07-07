@@ -1,11 +1,10 @@
-Game = function() {
-
-};
+Game = function() { };
 
 Game.prototype = {
  preload : function() {
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('developer_1', 'assets/developer_1.png');
+  game.load.image('window_background', 'assets/window_background.png');
   game.load.spritesheet('button_whip', 'assets/button_whip.png', 20, 7);
   game.load.spritesheet('button_project', 'assets/button_project.png', 64, 16);
   game.load.spritesheet('button_bottom_ui', 'assets/button_bottom_ui.png', 45, 8);
@@ -18,29 +17,41 @@ Game.prototype = {
   this.background.smoothed = false;
   this.background.scale.setTo(4, 4);
 
-  new Developer(230, 258);
+  developers.push(new Developer(230, 258));
   new Project(15, 5, "PROJECT-1");
   new Project(55, 5, "STUFFF");
   new Project(20, 6, "ABCDEFGHIJKLMNO");
-
+  project = new Project(15, 5, "PROJECT-8");
+  
   this.stats = new Stats();
   new BottomUI();
-  gameCreate();
- },
+  var windowBackground = game.add.sprite(0, 0, 'window_background');
+  windowBackground.smoothed = false;
+  windowBackground.scale.setTo(4, 4);
+  windowOverlay = game.add.group(); 
+  windowOverlay.add(windowBackground);
+  windowOverlay.visible = false;
+ }
+}
+var project;
+var windowOverlay;
+var developers = [];
 
- update : function() {
-  for(var i = 0; i < updatable.length; i++) {
-   updatable[i].update();
+var timers = [];
+function pause(b) {
+ if(b) {
+  for(var i = 0; i < timers.length; i++) {
+   timers[i].pause();
   }
-  for(var i = 0; i < toRemove.length; i++)
-   updatable.splice(toRemove[i], 1);
-  toRemove = [];
+ } else {
+  for(var i = 0; i < timers.length; i++) {
+   timers[i].resume();
+  }
  }
 }
 
-var project;
-var updatable = [];
-var toRemove = [];
-function gameCreate() {
-  project = new Project(15, 5, "PROJECT-8");
+function createTimer(b) {
+ var t = game.time.create(b);
+ timers.push(t);
+ return t;
 }

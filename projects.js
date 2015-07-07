@@ -1,5 +1,5 @@
 var posX = [253, 513, 253, 513];
-var posY = [5, 5, 74, 74];
+var posY = [5, 5, 73, 73];
 var posA = [true, true, true, true];
 
 var Project = function (width, height, name) {

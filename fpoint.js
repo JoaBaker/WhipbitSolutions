@@ -13,7 +13,10 @@ var FPoint = function (posX, posY, project) {
  
  this.SPEEDX = Math.abs(this.targetX - this.sprite.x)/45;
  this.SPEEDY = Math.abs(this.targetY - this.sprite.y)/45;
- updatable.push(this);
+ 
+ this.timer = createTimer(false);
+ this.timer.loop(1, this.update, this);
+ this.timer.start();
 }
 
 FPoint.prototype.update = function () { 
@@ -38,7 +41,7 @@ FPoint.prototype.update = function () {
  }
 
  if(xDone && yDone) {
-  toRemove.push(updatable.indexOf(this));
+  this.timer.stop();
   this.project.arrived(this); 
  }
 }
