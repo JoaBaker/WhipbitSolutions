@@ -1,22 +1,34 @@
 var Stats = function() {
- createButton(5, 6, 'button_stats', function() {}, this, 1, 1, 0);
- this.moneyText = createText(12, 15, 'MONEY:        \n7000$', 16);
+ createButton(5, 6, 'button_stats', function() { statsMenu.update(); windowOverlaySwitch(3); }, this, 1, 1, 0);
+ this.moneyText = createText(12, 15, '', 16);
  this.moneyText.align = 'right';
- this.reputationText = createText(12, 55, 'REPUTATION:   \n40*', 16);
+ this.reputationText = createText(12, 55, '', 16);
  this.reputationText.align = 'right';
- this.dayText = createText(12, 95, '', 16);
- this.dayText.align = 'right';
+ this.monthText = createText(12, 95, '', 16);
+ this.monthText.align = 'right';
  
- this.day = 0;
+ this.month = 0;
+ this.expences = 12;
+ this.money = 400;
+ this.reputation = 50;
+ this.reputationStanding = 1;
+ this.rent = 8;
+ this.salaries = 0;
+ this.supplies = 4;
  this.incDay();
 
  this.timer = createTimer(false);
- this.timer.loop(10000, this.incDay, this);
+ this.timer.loop(30000, this.incDay, this);
  this.timer.start();
 }
 
 Stats.prototype.incDay = function() {
- this.dayText.setText('DAY:          \n'+(++this.day));
+ this.expences = this.rent + this.salaries + this.supplies;
+ this.monthText.setText('MONTH:       \n'+(++this.month));
+ this.money -= this.expences;
+ this.moneyText.setText('MONEY:       \n$'+ this.money);
+ this.reputation += this.reputationStanding;
+ this.reputationText.setText('REPUTATION:   \n'+ this.reputation +'*');
 }
 
 var BottomUI = function() {

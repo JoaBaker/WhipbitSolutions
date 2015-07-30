@@ -21,7 +21,7 @@ Game.prototype = {
   new Project(20, 6, "ABCDEFGHIJKLMNO");
   project = new Project(15, 5, "PROJECT-8");
   
-  this.stats = new Stats();
+  stats = new Stats();
   new BottomUI();
   var windowBackground = createSprite(0, 0, 'window_background');
   windowOverlay = game.add.group(); 
@@ -29,7 +29,7 @@ Game.prototype = {
   windowOverlay.visible = false;
  }
 }
-var project;
+var project, stats;
 var windowOverlay;
 var developers = [];
 
