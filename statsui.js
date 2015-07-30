@@ -1,5 +1,5 @@
 var Stats = function() {
- createButton(5, 6, 'button_stats', function() { statsMenu.update(); windowOverlaySwitch(3); }, this, 1, 1, 0);
+ createButton(5, 6, 'button_stats', function() { statsMenu.update(); windowOverlaySwitch(2); }, this, 1, 1, 0);
  this.moneyText = createText(12, 15, '', 16);
  this.moneyText.align = 'right';
  this.reputationText = createText(12, 55, '', 16);
@@ -39,25 +39,10 @@ var BottomUI = function() {
  createText(200, 525, 'UPGRADES', 16); 
  
  createButton(381, 517, 'button_bottom_ui', function() { windowOverlaySwitch(2);}, this, 1, 1, 0);
- createText(388, 525, 'SAVE&LOAD', 16); 
+ createText(390, 525, 'MENU', 16); 
  
- createButton(571, 517, 'button_bottom_ui', function() {}, this, 1, 1, 0);
- createText(580, 525, 'MENU', 16);
+ createButton(571, 517, 'button_bottom_ui', function() { window.open('https://twitter.com/ViliX64', '_blank'); }, this, 1, 1, 0);
+ createText(580, 525, '@VILIX', 16);
 
  new OverlayMenu();
-}
-
-var overlayGroups = [];
-
-function windowOverlaySwitch(i) {
- windowOverlay.visible = !windowOverlay.visible;
- for(var j = 0; j < overlayGroups.length; j++)
-  overlayGroups[j].visible = windowOverlay.visible && (i==j)?true:false;
- 
- if(windowOverlay.visible) {
-  pause(true)
-  game.world.bringToTop(windowOverlay);
-  game.world.bringToTop(overlayGroups[i]);
- } else 
-  pause(false);
 }

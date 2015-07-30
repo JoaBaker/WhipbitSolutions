@@ -23,10 +23,6 @@ Game.prototype = {
   
   stats = new Stats();
   new BottomUI();
-  var windowBackground = createSprite(0, 0, 'window_background');
-  windowOverlay = game.add.group(); 
-  windowOverlay.add(windowBackground);
-  windowOverlay.visible = false;
  }
 }
 var project, stats;

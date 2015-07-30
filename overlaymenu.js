@@ -1,18 +1,39 @@
+var overlayGroups = [];
+
+function windowOverlaySwitch(i) {
+ windowOverlay.visible = !windowOverlay.visible;
+ for(var j = 0; j < overlayGroups.length; j++)
+  overlayGroups[j].visible = windowOverlay.visible && (i==j)?true:false;
+ 
+ if(windowOverlay.visible) {
+  pause(true)
+  game.world.bringToTop(windowOverlay);
+  game.world.bringToTop(overlayGroups[i]);
+ } else 
+  pause(false);
+}
+
+
 var OverlayMenu = function() { 
+ // CREATES BIG GRAY BOX FOR UI STUFF
+ windowOverlay = game.add.group(); 
+ windowOverlay.add(createSprite(0, 0, 'window_background'));
+ windowOverlay.add(createButton(588, 437, 'button_whip', function() { windowOverlaySwitch(-1); }, this, 1, 1, 0));
+ windowOverlay.add(createText(597, 444, 'BACK', 16));
+ windowOverlay.visible = false;
+ 
+ 
  managementMenu = new ManagementMenu();
  overlayGroups.push(managementMenu.g);
  
  upgradesMenu = new UpgradesMenu();
  overlayGroups.push(upgradesMenu.g);
  
- saveLoadMenu = new SaveLoadMenu();
- overlayGroups.push(saveLoadMenu.g);
- 
  statsMenu = new StatsMenu();
  overlayGroups.push(statsMenu.g);
 }
 
-var managementMenu, upgradesMenu, saveLoadMenu, statsMenu;
+var managementMenu, upgradesMenu, statsMenu;
 
 var ManagementMenu = function() {
  this.g = game.add.group(); 
@@ -23,12 +44,6 @@ var ManagementMenu = function() {
 var UpgradesMenu = function() {
  this.g = game.add.group(); 
  this.g.add(createText(105, 110, 'UPGRADES', 16)); 
- this.g.visible = false;
-}
-
-var SaveLoadMenu = function() {
- this.g = game.add.group(); 
- this.g.add(createText(105, 110, 'SAVE&LOAD', 16)); 
  this.g.visible = false;
 }
 
@@ -49,10 +64,6 @@ var StatsMenu = function() {
  this.g.add(this.reputationText); 
  this.standingText = createText(105, 360, '', 16);
  this.g.add(this.standingText); 
- 
- this.g.add(createButton(588, 437, 'button_whip', function() { windowOverlaySwitch(3); }, this, 1, 1, 0));
- this.g.add(createText(597, 444, 'BACK', 16));
- this.g.visible = false;
 }
 
 StatsMenu.prototype.update = function() {
