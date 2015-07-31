@@ -1,6 +1,5 @@
 var posX = [253, 513, 253, 513];
 var posY = [5, 5, 73, 73];
-var posA = [true, true, true, true];
 
 var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding) {
  this.rewardMoney = rewardMoney;
@@ -9,10 +8,11 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.name = name;
 
  var place = 0;
- for(; place < posA.length; place++)
-  if(posA[place]) break; 
- posA[place] = false;
- 
+ for(; place < projects.length; place++)
+  if(projects[place] == null) break; 
+ projects[place] = this;
+ this.place = place;
+
  // group for overlay
  this.g = game.add.group(); 
  this.g.add(createText(105, 110, 'PROJECT: ' + name, 16)); 
@@ -30,7 +30,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  // group for shipping unfinished project:
  this.gShip = game.add.group(); 
  this.gShip.add(createButton(0, 0, 'window_alert_background', function() {}, 0, 0, 0));
- this.gShip.add(createText(170, 240, 'DO YOU REALLY WANT TO SHIP\n  AN UNFINISHED PROJECT?\n   (REPUTATION PENALTY)\n     (SOME MONEY GAIN)', 16)); 
+ this.gShip.add(createText(170,240,'DO YOU REALLY WANT TO SHIP\n  AN UNFINISHED PROJECT?\n   (REPUTATION PENALTY)\n     (SOME MONEY GAIN)', 16)); 
  this.gShip.add(createButton(272, 337, 'button_whip', function() {
   this.done = true;
   windowOverlaySwitch(-1);
@@ -39,7 +39,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
   stats.update();
   this.all.destroy(true);
   this.g.visible = false;
-  delete windowOverlay[this.name + this.description];
+  this.removeFromLists();
  }, this, 1, 1, 0));
  this.gShip.add(createText(285, 344, 'YES', 16)); 
  this.gShip.add(createButton(410, 337, 'button_whip', function() { this.gShip.visible = false; }, this, 1, 1, 0));
@@ -58,7 +58,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
   stats.update();
   this.all.destroy(true);
   this.g.visible = false;
-  delete windowOverlay[this.name + this.description];
+  this.removeFromLists();
  }, this, 1, 1, 0));
  this.gCancel.add(createText(285, 344, 'YES', 16)); 
  this.gCancel.add(createButton(410, 337, 'button_whip', function() { this.gShip.visible = false; }, this, 1, 1, 0));
@@ -117,8 +117,13 @@ Project.prototype.arrived = function(fpoint) {
 }
 
 Project.prototype.finished = function() {
- delete windowOverlay[this.name + this.description];
  stats.money += this.rewardMoney;
  stats.reputationStanding += this.rewardReputationStanding;
  stats.update();
+ this.removeFromLists();
+}
+
+Project.prototype.removeFromLists = function() {
+ delete windowOverlay[this.name + this.description];
+ newProject.replace(this.place);
 }

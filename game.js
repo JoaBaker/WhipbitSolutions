@@ -17,18 +17,23 @@ Game.prototype = {
  create : function() {
   this.background = createSprite(0, 0, 'level_1');
   stats = new Stats();
+  newProject = new NewProject();
   new BottomUI();
+  projects.push(null);
+  projects.push(null);
+  projects.push(null);
+  projects.push(null);
 
   developers.push(new Developer(230, 258));
-  projects.push(new Project(15, 5, "PROJECT-8", 'ASDFASDFASDFASDF', 500, 3));
-  projects.push(new Project(15, 5, "PROJECT-1", 'studff', 1234, 8));
-  projects.push(new Project(55, 5, "STUFFF", 'sdafasdfasdf', 141521, 0));
-  projects.push(new Project(20, 6, "ABCDEFGHIJKLMNO", 'sadsfagds', 5012, 3));
-  developers[0].curProject = projects[0];
+  new Project(15, 5, "PROJECT-8", 'ASDFASDFASDFASDF', 500, 3);
+  developers[0].curProject = projects[0];  
   
+  newProject.replace(1);
+  newProject.replace(2);
+  newProject.replace(3);
  }
 }
-var stats;
+var stats, newProject;
 var windowOverlay;
 var developers = [], projects = [];
 
