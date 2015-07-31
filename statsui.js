@@ -47,7 +47,7 @@ var BottomUI = function() {
  createText(390, 525, 'HELP', 16); 
  
  createButton(571, 517, 'button_bottom_ui', function() { window.open('https://twitter.com/ViliX64', '_blank'); }, this, 1, 1, 0);
- createText(580, 525, '@VILIX', 16);
+ createText(580, 525, '@VILIX64', 16);
 
  new OverlayMenu();
 }

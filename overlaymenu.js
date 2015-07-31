@@ -18,7 +18,7 @@ function windowOverlaySwitch(i) {
 var OverlayMenu = function() { 
  // creates big gray box for ui stuff
  windowOverlay = game.add.group(); 
- windowOverlay.add(createSprite(0, 0, 'window_background'));
+ windowOverlay.add(createButton(0, 0, 'window_background', function() {}, this, 0, 0, 0));
  windowOverlay.add(createButton(588, 437, 'button_whip', function() { windowOverlaySwitch(-1); }, this, 1, 1, 0));
  windowOverlay.add(createText(597, 444, 'BACK', 16));
  windowOverlay.visible = false;
@@ -76,5 +76,5 @@ StatsMenu.prototype.update = function() {
  this.suppliesText.setText('SUPPLIES: $' + stats.supplies);
  
  this.reputationText.setText('REPUTATION: ' + stats.reputation + '*');
- this.standingText.setText('STANDING: ' + stats.reputationStanding + '*/day');
+ this.standingText.setText('STANDING: ' + stats.reputationStanding + '*/month');
 }

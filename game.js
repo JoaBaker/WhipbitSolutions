@@ -5,7 +5,9 @@ Game.prototype = {
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('developer_1', 'assets/developer_1.png');
   game.load.image('window_background', 'assets/window_background.png');
+  game.load.image('window_alert_background', 'assets/window_alert_background.png');
   game.load.spritesheet('button_whip', 'assets/button_whip.png', 20, 7);
+  game.load.spritesheet('button_cancel', 'assets/button_cancel.png', 30, 7);
   game.load.spritesheet('button_project', 'assets/button_project.png', 64, 16);
   game.load.spritesheet('button_bottom_ui', 'assets/button_bottom_ui.png', 45, 8);
   game.load.spritesheet('button_stats', 'assets/button_stats.png', 59, 33);
@@ -18,10 +20,10 @@ Game.prototype = {
   new BottomUI();
 
   developers.push(new Developer(230, 258));
-  projects.push(new Project(15, 5, "PROJECT-8", 'descrafjpisdjfa', 500, 3));
-  projects.push(new Project(15, 5, "PROJECT-1"));
-  projects.push(new Project(55, 5, "STUFFF"));
-  projects.push(new Project(20, 6, "ABCDEFGHIJKLMNO"));
+  projects.push(new Project(15, 5, "PROJECT-8", 'ASDFASDFASDFASDF', 500, 3));
+  projects.push(new Project(15, 5, "PROJECT-1", 'studff', 1234, 8));
+  projects.push(new Project(55, 5, "STUFFF", 'sdafasdfasdf', 141521, 0));
+  projects.push(new Project(20, 6, "ABCDEFGHIJKLMNO", 'sadsfagds', 5012, 3));
   developers[0].curProject = projects[0];
   
  }
