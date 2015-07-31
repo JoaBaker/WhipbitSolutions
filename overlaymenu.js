@@ -2,9 +2,10 @@ var overlayGroups = [];
 
 function windowOverlaySwitch(i) {
  windowOverlay.visible = !windowOverlay.visible;
- for(var j = 0; j < overlayGroups.length; j++)
-  overlayGroups[j].visible = windowOverlay.visible && (i==j)?true:false;
- 
+ for(var k in overlayGroups) {
+  overlayGroups[k].visible = windowOverlay.visible && (i==k)?true:false;
+ }
+
  if(windowOverlay.visible) {
   pause(true)
   game.world.bringToTop(windowOverlay);
@@ -15,7 +16,7 @@ function windowOverlaySwitch(i) {
 
 
 var OverlayMenu = function() { 
- // CREATES BIG GRAY BOX FOR UI STUFF
+ // creates big gray box for ui stuff
  windowOverlay = game.add.group(); 
  windowOverlay.add(createSprite(0, 0, 'window_background'));
  windowOverlay.add(createButton(588, 437, 'button_whip', function() { windowOverlaySwitch(-1); }, this, 1, 1, 0));
@@ -24,13 +25,13 @@ var OverlayMenu = function() {
  
  
  managementMenu = new ManagementMenu();
- overlayGroups.push(managementMenu.g);
+ overlayGroups['management'] = managementMenu.g;
  
  upgradesMenu = new UpgradesMenu();
- overlayGroups.push(upgradesMenu.g);
+ overlayGroups['upgrades'] = upgradesMenu.g;
  
  statsMenu = new StatsMenu();
- overlayGroups.push(statsMenu.g);
+ overlayGroups['stats'] = statsMenu.g;
 }
 
 var managementMenu, upgradesMenu, statsMenu;

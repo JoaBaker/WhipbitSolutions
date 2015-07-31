@@ -43,9 +43,17 @@ Developer.prototype.develop = function() {
 }
 
 Developer.prototype.updateLoader = function() {
+ if(this.curProject == null)
+  return;
+ 
+ if(this.curProject.assigned +1 >= this.curProject.capacity) {
+  this.curProject = null;
+  this.fPointLoaderProgress = 16;
+  return;
+ }
+
  this.fPointLoaderProgress -= this.motivation/20 + .3;
  if(this.fPointLoaderProgress <= 0) {
-  this.curProject = project;
   new FPoint(this.posX+65, this.posY, this.curProject); 
   this.fPointLoaderProgress = 16;
  }

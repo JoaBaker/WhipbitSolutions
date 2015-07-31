@@ -14,20 +14,21 @@ Game.prototype = {
 
  create : function() {
   this.background = createSprite(0, 0, 'level_1');
-
-  developers.push(new Developer(230, 258));
-  new Project(15, 5, "PROJECT-1");
-  new Project(55, 5, "STUFFF");
-  new Project(20, 6, "ABCDEFGHIJKLMNO");
-  project = new Project(15, 5, "PROJECT-8");
-  
   stats = new Stats();
   new BottomUI();
+
+  developers.push(new Developer(230, 258));
+  projects.push(new Project(15, 5, "PROJECT-8", 'descrafjpisdjfa', 500, 3));
+  projects.push(new Project(15, 5, "PROJECT-1"));
+  projects.push(new Project(55, 5, "STUFFF"));
+  projects.push(new Project(20, 6, "ABCDEFGHIJKLMNO"));
+  developers[0].curProject = projects[0];
+  
  }
 }
-var project, stats;
+var stats;
 var windowOverlay;
-var developers = [];
+var developers = [], projects = [];
 
 var timers = [];
 function pause(b) {

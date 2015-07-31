@@ -2,15 +2,27 @@ var posX = [253, 513, 253, 513];
 var posY = [5, 5, 73, 73];
 var posA = [true, true, true, true];
 
-var Project = function (width, height, name) {
+var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding) {
+ this.rewardMoney = rewardMoney;
+ this.rewardReputationStanding = rewardReputationStanding;
+
  var place = 0;
  for(; place < posA.length; place++)
-  if(posA[place]) break;
- 
+  if(posA[place]) break; 
  posA[place] = false;
+ 
+ // group for overlay
+ this.g = game.add.group(); 
+ this.g.add(createText(105, 110, 'PROJECT: ' + name, 16)); 
+ this.g.add(createText(105, 150, description, 16)); 
+ this.g.add(createText(105, 190, 'PROGRESS: ', 16)); 
+ this.g.add(createText(105, 230, 'REWARD: ', 16)); 
+ this.g.add(createText(105, 270, 'START DATE (MONTH): ' + stats.month, 16)); 
+ this.g.visible = false;
+ overlayGroups[name+description] = this.g; 
 
  // initializes main project button and text
- var button = createButton(posX[place]-8, posY[place], 'button_project', function() {}, this, 1, 1, 0);
+ var button = createButton(posX[place]-8, posY[place], 'button_project', function() { windowOverlaySwitch(name+description); }, this, 1, 1, 0);
  var text = createText(posX[place], posY[place]+10, name, 16);
  
  // initializes background for points
@@ -43,6 +55,14 @@ Project.prototype.getPosition = function() {
 Project.prototype.arrived = function(fpoint) {
  this.all.add(fpoint.sprite);
  this.points++;
- if(this.points == this.capacity)
+ if(this.points == this.capacity) {
   this.all.destroy(true);
+  this.finished();
+ }
+}
+
+Project.prototype.finished = function() {
+ stats.money += this.rewardMoney;
+ stats.reputationStanding += this.rewardReputationStanding;
+ stats.update();
 }

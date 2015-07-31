@@ -1,5 +1,5 @@
 var Stats = function() {
- createButton(5, 6, 'button_stats', function() { statsMenu.update(); windowOverlaySwitch(2); }, this, 1, 1, 0);
+ createButton(5, 6, 'button_stats', function() { statsMenu.update(); windowOverlaySwitch('stats'); }, this, 1, 1, 0);
  this.moneyText = createText(12, 15, '', 16);
  this.moneyText.align = 'right';
  this.reputationText = createText(12, 55, '', 16);
@@ -8,38 +8,43 @@ var Stats = function() {
  this.monthText.align = 'right';
  
  this.month = 0;
- this.expences = 12;
- this.money = 400;
- this.reputation = 50;
- this.reputationStanding = 1;
- this.rent = 8;
+ this.expences = 0;
+ this.money = 1000;
+ this.reputation = 10;
+ this.reputationStanding = 0;
+ this.rent = 50;
  this.salaries = 0;
- this.supplies = 4;
- this.incDay();
+ this.supplies = 30;
+ this.incMonth();
 
  this.timer = createTimer(false);
- this.timer.loop(30000, this.incDay, this);
+ this.timer.loop(30000, this.incMonth, this);
  this.timer.start();
 }
 
-Stats.prototype.incDay = function() {
+Stats.prototype.incMonth = function() {
+ this.month++;
  this.expences = this.rent + this.salaries + this.supplies;
- this.monthText.setText('MONTH:       \n'+(++this.month));
  this.money -= this.expences;
- this.moneyText.setText('MONEY:       \n$'+ this.money);
  this.reputation += this.reputationStanding;
+ this.update();
+}
+
+Stats.prototype.update = function() {
+ this.monthText.setText('MONTH:       \n' + this.month);
+ this.moneyText.setText('MONEY:       \n$'+ this.money);
  this.reputationText.setText('REPUTATION:   \n'+ this.reputation +'*');
 }
 
 var BottomUI = function() {
- createButton(5, 517, 'button_bottom_ui', function() { windowOverlaySwitch(0); }, this, 1, 1, 0);
+ createButton(5, 517, 'button_bottom_ui', function() { windowOverlaySwitch('management'); }, this, 1, 1, 0);
  createText(12, 525, 'MANAGEMENT', 16); 
  
- createButton(193, 517, 'button_bottom_ui', function() { windowOverlaySwitch(1);}, this, 1, 1, 0);
+ createButton(193, 517, 'button_bottom_ui', function() { windowOverlaySwitch('upgrades');}, this, 1, 1, 0);
  createText(200, 525, 'UPGRADES', 16); 
  
- createButton(381, 517, 'button_bottom_ui', function() { windowOverlaySwitch(2);}, this, 1, 1, 0);
- createText(390, 525, 'MENU', 16); 
+ createButton(381, 517, 'button_bottom_ui', function() { }, this, 1, 1, 0);
+ createText(390, 525, 'HELP', 16); 
  
  createButton(571, 517, 'button_bottom_ui', function() { window.open('https://twitter.com/ViliX64', '_blank'); }, this, 1, 1, 0);
  createText(580, 525, '@VILIX', 16);
