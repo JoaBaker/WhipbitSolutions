@@ -28,8 +28,8 @@ Game.prototype = {
   projects.push(null);
   projects.push(null);
 
-  new Developer(230, 258, ['JS', 'CSS', 'MySQL', 'Website Design']);
-  new Developer(430, 258, ['Networking', 'Python']);
+  new Developer(230, 258, 'ViliX', 0, ['JS', 'CSS', 'MySQL', 'Website Design']);
+  new Developer(430, 258, 'Tony', 1000, ['Networking', 'Python']);
   
   newProject = new NewProject();
   
@@ -44,6 +44,8 @@ Game.prototype = {
   var timer = createTimer(false);
   timer.loop(10000, function() { newProject.unlockRandom(false); }, this);
   timer.start(); 
+  
+  managementMenu.update();
  }
 }
 var stats, newProject, studio;

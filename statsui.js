@@ -28,7 +28,6 @@ Stats.prototype.incMonth = function() {
  this.money -= this.expences;
  this.reputation += this.reputationStanding;
  this.reputationStanding += this.reputationStanding>0?(-1-Math.floor(this.reputationStanding/10)):(1+Math.floor(-this.reputationStanding/10))
- console.log(1+Math.floor(-this.reputationStanding/10));
  this.update();
 }
 

@@ -38,12 +38,6 @@ var OverlayMenu = function() {
 
 var managementMenu, upgradesMenu, statsMenu;
 
-var ManagementMenu = function() {
- this.g = game.add.group(); 
- this.g.add(createText(105, 110, 'MANAGEMENT', 16)); 
- this.g.visible = false;
-}
-
 var UpgradesMenu = function() {
  this.g = game.add.group(); 
  this.g.add(createText(105, 110, 'UPGRADES', 16)); 

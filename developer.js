@@ -1,6 +1,8 @@
-var Developer = function(posX, posY, skills) {
+var Developer = function(posX, posY, name, salary, skills) {
  this.posX = posX; this.posY = posY;
  this.skills = skills;
+ this.name = name;
+ this.salary = salary;
 
  // creates character
  this.sprite = createSprite(posX, posY, 'developer_1');
