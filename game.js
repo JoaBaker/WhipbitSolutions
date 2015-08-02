@@ -2,6 +2,7 @@ Game = function() { };
 
 Game.prototype = {
  preload : function() {
+  game.load.json('all_projects', 'assets/all_projects.json');
   game.load.image('ui_background', 'assets/ui_background.png');
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('developer_1', 'assets/developer_1.png');
@@ -21,14 +22,17 @@ Game.prototype = {
   stats = new Stats();
   newProject = new NewProject();
   new BottomUI();
+
   projects.push(null);
   projects.push(null);
   projects.push(null);
   projects.push(null);
 
   developers.push(new Developer(230, 258));
+  developers.push(new Developer(430, 258));
   new Project(15, 5, "PROJECT-8", 'ASDFASDFASDFASDF', 500, 3);
   developers[0].curProject = projects[0];  
+  developers[1].curProject = projects[0];  
   
   newProject.replace(1);
   newProject.replace(2);

@@ -2,7 +2,7 @@ var Developer = function(posX, posY) {
  this.posX = posX; this.posY = posY;
 
  // creates character
- createSprite(posX, posY, 'developer_1');
+ this.sprite = createSprite(posX, posY, 'developer_1');
 
  // initializes whip button & text
  createButton(posX+55, posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0);
@@ -43,9 +43,22 @@ Developer.prototype.develop = function() {
 }
 
 Developer.prototype.updateLoader = function() {
+ if(typeof(this.curProject) == 'undefined' || this.curProject == null)
+  return;
  if(this.curProject.done) {
+  // add some fun to play crap about player xp; im tired; night
+  this.curProject = null;
   this.fPointLoaderProgress = 16;
   this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
+  
+  //go for a random project
+  var tmpProjects = [];
+  for(var i = 0; i < projects.length; i++)
+   if(projects[i] != null)
+    tmpProjects.push(projects[i]);
+
+  if(tmpProjects.length > 0)
+   this.curProject = tmpProjects[Math.floor(Math.random() * tmpProjects.length)];
   return;
  }
 
@@ -63,7 +76,7 @@ Developer.prototype.updateMotivation = function() {
 }
 
 Developer.prototype.incMotivation = function() {
- this.motivation += .5;
+ this.motivation += .8;
  if(this.motivation > 16) this.motivation = 16.12; 
  this.updateMotivation();
 }

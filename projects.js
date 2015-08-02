@@ -118,7 +118,7 @@ Project.prototype.arrived = function(fpoint) {
 
 Project.prototype.finished = function() {
  stats.money += this.rewardMoney;
- stats.reputationStanding += this.rewardReputationStanding;
+ stats.reputationStanding += Math.floor(this.rewardReputationStanding * (Math.floor(Math.random() * 3) + 1)/2);
  stats.update();
  this.removeFromLists();
 }
