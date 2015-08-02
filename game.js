@@ -2,6 +2,7 @@ Game = function() { };
 
 Game.prototype = {
  preload : function() {
+  game.load.image('ui_background', 'assets/ui_background.png');
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('developer_1', 'assets/developer_1.png');
   game.load.image('window_background', 'assets/window_background.png');
@@ -15,7 +16,8 @@ Game.prototype = {
  },
 
  create : function() {
-  this.background = createSprite(0, 0, 'level_1');
+  createSprite(0, 0, 'ui_background');
+  background = createSprite(0, 148, 'level_1');
   stats = new Stats();
   newProject = new NewProject();
   new BottomUI();
@@ -36,6 +38,7 @@ Game.prototype = {
 var stats, newProject;
 var windowOverlay;
 var developers = [], projects = [];
+var background;
 
 var timers = [];
 function pause(b) {
