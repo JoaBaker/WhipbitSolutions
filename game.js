@@ -29,7 +29,7 @@ Game.prototype = {
   projects.push(null);
 
   new Developer(230, 258, 'ViliX', 0, ['JS', 'CSS', 'MySQL', 'Website Design']);
-  new Developer(430, 258, 'Tony', 1000, ['Networking', 'Python']);
+  new Developer(430, 258, 'Tony', 200, ['Networking', 'Python']);
   
   newProject = new NewProject();
   
