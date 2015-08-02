@@ -1,11 +1,12 @@
 var posX = [253, 513, 253, 513];
 var posY = [5, 5, 73, 73];
 
-var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding) {
+var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding, projectAssigment) {
  this.rewardMoney = rewardMoney;
  this.rewardReputationStanding = rewardReputationStanding;
  this.description = description;
  this.name = name;
+ this.projectAssigment = projectAssigment;
 
  var place = 0;
  for(; place < projects.length; place++)
@@ -15,7 +16,8 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
 
  // group for overlay
  this.g = game.add.group(); 
- this.g.add(createText(105, 110, 'PROJECT: ' + name, 16)); 
+ this.g.add(createText(105, 110, name, 16)); 
+ this.progressText = this.g.add(createText(105, 150, 'PROGRESS: 0%', 16)); 
  this.g.add(createText(105, 190, 'REWARD: $' + rewardMoney, 16)); 
  this.g.add(createText(105, 230, 'START DATE (MONTH): ' + stats.month, 16)); 
  this.g.add(createText(105, 270, 'PUBLICITY: ' + this.rewardReputationStanding + '*', 16)); 
@@ -35,7 +37,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
   this.done = true;
   windowOverlaySwitch(-1);
   stats.money += Math.ceil(this.rewardMoney * this.assigned/(this.capacity*1.2)) * (Math.floor(Math.random() * 3) + 1);
-  stats.reputationStanding -= Math.abs(this.rewardReputationStanding * (Math.floor(Math.random() * 4) + 1));
+  stats.reputationStanding -= Math.abs(this.rewardReputationStanding * (Math.floor(Math.random() * 3) + 1));
   stats.update();
   this.all.destroy(true);
   this.g.visible = false;
@@ -54,7 +56,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.gCancel.add(createButton(272, 337, 'button_whip', function() {
   this.done = true;
   windowOverlaySwitch(-1);
-  stats.reputationStanding -= Math.abs(this.rewardReputationStanding * (Math.floor(Math.random() * 2) + 1));
+  stats.reputationStanding -= Math.abs(this.rewardReputationStanding * Math.floor(Math.random() * 1.2));
   stats.update();
   this.all.destroy(true);
   this.g.visible = false;
@@ -95,9 +97,12 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
 }
 
 Project.prototype.display = function() {
-  this.gShip.visible = false;  
-  this.gCancel.visible = false;  
-  windowOverlaySwitch(this.name+this.description);
+ this.gShip.visible = false;  
+ this.gCancel.visible = false;
+ var tmpAssigned = this.assigned;
+ if(tmpAssigned < 0) tmpAssigned = 0;
+ this.progressText.setText('PROGRESS: ' + Math.floor(tmpAssigned/this.capacity*100) + '%'); 
+ windowOverlaySwitch(this.name+this.description);
 }
 
 Project.prototype.getPosition = function() {
@@ -118,12 +123,14 @@ Project.prototype.arrived = function(fpoint) {
 
 Project.prototype.finished = function() {
  stats.money += this.rewardMoney;
- stats.reputationStanding += Math.floor(this.rewardReputationStanding * (Math.floor(Math.random() * 3) + 1)/2);
+ stats.reputationStanding += Math.floor(this.rewardReputationStanding * (Math.floor(Math.random() * 2.5) + 1));
  stats.update();
  this.removeFromLists();
 }
 
 Project.prototype.removeFromLists = function() {
+ this.projectAssigment['active'] = false;
+ this.projectAssigment['date_finished'] = stats.month;
  delete windowOverlay[this.name + this.description];
  newProject.replace(this.place);
 }

@@ -19,8 +19,8 @@ Game.prototype = {
  create : function() {
   createSprite(0, 0, 'ui_background');
   background = createSprite(0, 148, 'level_1');
+  studio = new Studio();
   stats = new Stats();
-  newProject = new NewProject();
   new BottomUI();
 
   projects.push(null);
@@ -28,18 +28,25 @@ Game.prototype = {
   projects.push(null);
   projects.push(null);
 
-  developers.push(new Developer(230, 258));
-  developers.push(new Developer(430, 258));
-  new Project(15, 5, "PROJECT-8", 'ASDFASDFASDFASDF', 500, 3);
-  developers[0].curProject = projects[0];  
-  developers[1].curProject = projects[0];  
+  new Developer(230, 258, ['JS', 'CSS', 'MySQL', 'Website Design']);
+  new Developer(430, 258, ['Networking', 'Python']);
   
+  newProject = new NewProject();
+  
+  newProject.replace(0);
   newProject.replace(1);
   newProject.replace(2);
   newProject.replace(3);
+  
+  newProject.unlockRandom(true);
+  newProject.unlockRandom(true);
+ 
+  var timer = createTimer(false);
+  timer.loop(10000, function() { newProject.unlockRandom(false); }, this);
+  timer.start(); 
  }
 }
-var stats, newProject;
+var stats, newProject, studio;
 var windowOverlay;
 var developers = [], projects = [];
 var background;

@@ -9,7 +9,7 @@ var Stats = function() {
  
  this.month = 0;
  this.expences = 0;
- this.money = 1000;
+ this.money = 180;
  this.reputation = 10;
  this.reputationStanding = 0;
  this.rent = 50;
@@ -18,7 +18,7 @@ var Stats = function() {
  this.incMonth();
 
  this.timer = createTimer(false);
- this.timer.loop(30000, this.incMonth, this);
+ this.timer.loop(20000, this.incMonth, this);
  this.timer.start();
 }
 
@@ -27,6 +27,8 @@ Stats.prototype.incMonth = function() {
  this.expences = this.rent + this.salaries + this.supplies;
  this.money -= this.expences;
  this.reputation += this.reputationStanding;
+ this.reputationStanding += this.reputationStanding>0?(-1-Math.floor(this.reputationStanding/10)):(1+Math.floor(-this.reputationStanding/10))
+ console.log(1+Math.floor(-this.reputationStanding/10));
  this.update();
 }
 
@@ -38,16 +40,16 @@ Stats.prototype.update = function() {
 
 var BottomUI = function() {
  createButton(5, 517, 'button_bottom_ui', function() { windowOverlaySwitch('management'); }, this, 1, 1, 0);
- createText(12, 525, 'MANAGEMENT', 16); 
+ createText(17, 525, 'MANAGEMENT', 16); 
  
  createButton(193, 517, 'button_bottom_ui', function() { windowOverlaySwitch('upgrades');}, this, 1, 1, 0);
- createText(200, 525, 'UPGRADES', 16); 
+ createText(218, 525, 'UPGRADES', 16); 
  
  createButton(381, 517, 'button_bottom_ui', function() { }, this, 1, 1, 0);
- createText(390, 525, 'HELP', 16); 
+ createText(439, 525, 'HELP', 16); 
  
  createButton(571, 517, 'button_bottom_ui', function() { window.open('https://twitter.com/ViliX64', '_blank'); }, this, 1, 1, 0);
- createText(580, 525, '@VILIX64', 16);
+ createText(597, 525, '@VILIX64', 16);
 
  new OverlayMenu();
 }

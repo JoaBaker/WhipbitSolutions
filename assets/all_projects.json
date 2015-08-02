@@ -1,16 +1,38 @@
 [
  {
-  "title":"asdf",
-  "description":"asdf2",
-  "length":4,
-  "publicity":-3,
-  "reward":800
+  "title": "STATIC WEBSITE",
+  "description": "I need a website with (mostly)\nstatic content where I can share\nmy art.",
+  "requirements": ["JS", "CSS"],
+  "length":9,
+  "publicity":3,
+  "reward":100,
+  "level":1
  },
  {
-  "title":"asasdasdfdf",
-  "description":"asdasdfasdff2",
+  "title":"DATA ENTRY",
+  "description":"We need to get some data from\nan Excel document into our database.\nWe would do it ourselves,\nbut we're busy.",
+  "requirements": ["MySQL"],
   "length":4,
+  "publicity":2,
+  "reward":50,
+  "level":1
+ },
+ {
+  "title":"PYTHON SCRIPT",
+  "description":"I was fired from my job and I just\nwant to mess up their systems.\nThey deserve it..",
+  "requirements": ["Python", "Networking"],
+  "length":6,
   "publicity":-3,
-  "reward":400
+  "reward":250,
+  "level":1
+ },
+ {
+  "title":"WEBSITE MOCKUP",
+  "description":"Our only designed is sick (long-term)\nand we need to have a basic\nwebsite template for presentation.",
+  "requirements": ["Website Design"],
+  "length":5,
+  "publicity":4,
+  "reward":100,
+  "level":1
  }
 ]
