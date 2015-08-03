@@ -3,6 +3,7 @@ Game = function() { };
 Game.prototype = {
  preload : function() {
   game.load.json('all_projects', 'assets/all_projects.json');
+  game.load.json('all_developers', 'assets/all_developers.json');
   game.load.image('ui_background', 'assets/ui_background.png');
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('window_background', 'assets/window_background.png');
@@ -25,14 +26,15 @@ Game.prototype = {
   studio = new Studio();
   stats = new Stats();
   new BottomUI();
+  allDevelopers = game.cache.getJSON('all_developers');
 
   projects.push(null);
   projects.push(null);
   projects.push(null);
   projects.push(null);
 
-  new Developer(230, 258, 'ViliX', 0, ['JS', 'CSS', 'SQL', 'Web Design', 'HTML5']);
-  new Developer(500, 258, 'Tony', 200, ['Networking', 'Python', 'PHP']);
+  new Developer(0);
+  new Developer(1);
   
   newProject = new NewProject();
   
@@ -55,6 +57,7 @@ var stats, newProject, studio;
 var windowOverlay;
 var developers = [], projects = [];
 var background;
+var allDevelopers;
 
 var timers = [];
 function pause(b) {

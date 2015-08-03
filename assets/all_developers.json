@@ -1,0 +1,18 @@
+[
+ {
+  "name":         "ViliX",
+  "speed":        10,
+  "skills":       ["JS", "PHP", "SQL"],
+  "salary" :      100,
+  "hire_fee":     200,
+  "skill_points": 2
+ },
+ {
+  "name":         "Milton",
+  "speed":        7,
+  "skills":       ["Python", "Networking", "SQL"],
+  "salary" :      100,
+  "hire_fee":     0,
+  "skill_points": 4
+ }
+]

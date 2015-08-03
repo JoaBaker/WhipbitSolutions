@@ -1,6 +1,16 @@
 Studio = function() {
  this.level = 0;
  this.capacities = [2, 3, 4];
+ this.posX = [
+  [250, 500],
+  [250, 500, 600],
+  [250, 500, 100, 400]
+ ];
+ this.posY = [
+  [258, 258],
+  [258, 258, 258],
+  [258, 258, 258, 258]
+ ]
  this.inc();
 }
 

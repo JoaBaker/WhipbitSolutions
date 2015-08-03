@@ -1,23 +1,35 @@
-var Developer = function(posX, posY, name, salary, skills) {
- this.posX = posX; this.posY = posY;
- this.skills = skills;
- this.name = name;
- this.salary = salary;
+var Developer = function(id) {
+ developers.push(this);
+ this.posX = studio.posX[studio.level-1][developers.length-1];
+ this.posY = studio.posY[studio.level-1][developers.length-1];
  
+ this.id = id;
+ this.src = allDevelopers[id];
+ this.skills = this.src['skills'];
+ this.name = this.src['name'];
+ this.salary = this.src['salary'];
+ this.skillPoints = this.src['skill_points'];
+ this.speed = this.src['speed'];
+
  this.exp = 0.0;
- this.skillPoints = 0;
  this.level = 1;
- stats.salaries += salary;
+ stats.salaries += this.salary;
  this.startMonth = stats.month;
 
  // creates character
- this.sprite = createSprite(posX, posY, 'developers');
+ this.sprite = createSprite(this.posX, this.posY, 'developers');
+ this.sprite.animations.add('program', [this.id*3]);
+ this.sprite.animations.play('program', 1);
+ this.sprite.events.onAnimationComplete.add(function() {
+  this.sprite.animations.add('program', [Math.floor(Math.random()*3)+this.id*3]);
+  this.sprite.animations.play('program', Math.random()/2+0.1);
+ }, this);
  this.g = game.add.group();
  this.g.add(this.sprite);
 
  // initializes whip button & text
- this.g.add(createButton(posX+55, posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0));
- this.g.add(createText(posX+64, posY+207, 'WHIP', 16));
+ this.g.add(createButton(this.posX+25, this.posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0));
+ this.g.add(createText(this.posX+34, this.posY+207, 'WHIP', 16));
 
  // initializes background loader graphics
  var boundary = game.add.bitmapData(64, 4);
@@ -32,18 +44,18 @@ var Developer = function(posX, posY, name, salary, skills) {
  bd.ctx.rect(0, 0, 1, 1);
  bd.ctx.fillStyle = '#000000';
  bd.ctx.fill();
- this.fPointLoader = game.add.sprite(posX+60, posY+9, bd);
+ this.fPointLoader = game.add.sprite(this.posX+30, this.posY+9, bd);
  this.fPointLoaderProgress = 16;
  this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
- var fb = game.add.sprite(posX+60, posY+9, boundary);
+ var fb = game.add.sprite(this.posX+30, this.posY+9, boundary);
  fb.alpha = .2;
  this.g.add(this.fPointLoader);
  this.g.add(fb);
 
  // initializes motivationSlider
- this.motivationSlider = game.add.sprite(posX+60, posY+15, bd);
+ this.motivationSlider = game.add.sprite(this.posX+30, this.posY+15, bd);
  this.motivation = 16.2;
- var mb = game.add.sprite(posX+60, posY+15, boundary);
+ var mb = game.add.sprite(this.posX+30, this.posY+15, boundary);
  mb.alpha = .2;
  this.g.add(this.motivationSlider);
  this.g.add(mb);
@@ -53,12 +65,10 @@ var Developer = function(posX, posY, name, salary, skills) {
  this.timer.start(); 
  
  this.projects = [];
- this.speed = 10;
- developers.push(this);
 
- for(var i = 0; i < skills.length; i++) {
+ for(var i = 0; i < this.skills.length; i++) {
   for(var j = 0; j < allSkills.length; j++) {
-   if(allSkills[j][0] == skills[i] && allSkillsAvailable.indexOf(allSkills[j]) == -1) {
+   if(allSkills[j][0] == this.skills[i] && allSkillsAvailable.indexOf(allSkills[j]) == -1) {
     allSkillsAvailable.push(allSkills[j]);
    }
   }
