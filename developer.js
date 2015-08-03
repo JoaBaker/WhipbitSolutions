@@ -11,7 +11,7 @@ var Developer = function(posX, posY, name, salary, skills) {
  this.startMonth = stats.month;
 
  // creates character
- this.sprite = createSprite(posX, posY, 'developer_1');
+ this.sprite = createSprite(posX, posY, 'developers');
  this.g = game.add.group();
  this.g.add(this.sprite);
 
@@ -85,7 +85,7 @@ Developer.prototype.updateLoader = function() {
    // add some fun to play crap about player xp; im tired; night
    new FPoint(this.posX+65, this.posY, this.projects[i]); 
    this.fPointLoaderProgress = 16;
-   this.incExp(1);
+   this.incExp(0.5+1/this.level);
   }
   this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
   break;
@@ -143,4 +143,5 @@ Developer.prototype.incLevel = function() {
  stats.salaries += this.level * 20;
  this.level ++;
  this.skillPoints++;
+ this.speed+=Math.floor(Math.random()*3)+1;
 }

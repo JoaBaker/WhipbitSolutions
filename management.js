@@ -1,11 +1,11 @@
 var allSkills = [
  ['.NET', 1],
  ['AJAX', 1],
- ['ASP.NET', 2],
+ ['Assembly', 2],
  ['C/C++', 2],
  ['CSS', 1],
  ['Algorithms', 2],
- ['Graphics', 2],
+ ['UI Design', 2],
  ['Games', 2],
  ['Git', 1],
  ['HTML5', 1],
@@ -25,7 +25,7 @@ var allSkills = [
  ['Security', 2]
 ];
 
-var allSkillsAvailable = [];
+var allSkillsAvailable = [[".NET", 1]];
 
 var ManagementMenu = function() {
  this.g = game.add.group(); 
@@ -72,8 +72,9 @@ ManagementMenu.prototype.displayDev = function(i) {
  var duration = stats.month - developer.startMonth;
  this.gDev.add(createText(105, 150, 'Pressing buttons for ' + duration + ' month' + (duration==1?'':'s'), 16)); 
  this.gDev.add(createText(105, 190, 'Salary: $' + developer.salary, 16)); 
+ this.gDev.add(createText(500, 190, 'Speed: ' + developer.speed, 16)); 
  this.gDev.add(createText(105, 230, 'Experience: ' + Math.floor(developer.exp) + '^/' + (developer.level * 100) + '^', 16)); 
- this.gDev.add(createText(510, 230, 'Level: ' + developer.level, 16)); 
+ this.gDev.add(createText(500, 230, 'Level: ' + developer.level, 16)); 
 
 this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i); }, this, 1, 1, 0));
  this.gDev.add(createText(114, 444, 'FIRE', 16));  
@@ -91,18 +92,14 @@ this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i)
   }
   var project_select = this.gDev.add(createButton(125, posY[q-offQ], 'button_project_select', function(b) {
    if(b.avail_indicator.frame == 1) {
-    console.log('first');
     if(developers[i].tryAddProject(b.project)) {
      b.avail_indicator.frame = 0;
-     console.log('second');
     } else {
      b.avail_indicator.frame = 1;
-     console.log('third');
     }
    } else {
     developers[i].removeProject(b.project);
     b.avail_indicator.frame = 1;
-    console.log('fourth');
    }
   }, this, 1, 1, 0));
   project_select.avail_indicator = this.gDev.add(createButton(105, posY[q-offQ], 'button_allow', function() {  }, this, 0, 0, 0));
@@ -176,6 +173,8 @@ ManagementMenu.prototype.fireDev = function(i) {
   stats.salaries -= developer.salary;
   developers.splice(i, 1);
   developer.g.destroy(true);
+  stats.reputation -= 1;
+  stats.update();
   this.update();
  }, this, 1, 1, 0));
  this.gDevFire.add(createText(285, 344, 'YES', 16)); 
@@ -202,6 +201,8 @@ ManagementMenu.prototype.promoteDev = function(i) {
    this.gDevProm.destroy(true);
    this.gDev.destroy(true);
    this.displayDev(i);
+   stats.update();
+   this.update();
   }, this, 1, 1, 0));
   this.gDevProm.add(createText(285, 344, 'YES', 16)); 
  }

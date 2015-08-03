@@ -1,6 +1,6 @@
 Studio = function() {
  this.level = 0;
- this.capacities = [3, 5, 6];
+ this.capacities = [2, 3, 4];
  this.inc();
 }
 

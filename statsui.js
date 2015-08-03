@@ -9,7 +9,7 @@ var Stats = function() {
  
  this.month = 0;
  this.expences = 0;
- this.money = 180;
+ this.money = 380;
  this.reputation = 10;
  this.reputationStanding = 0;
  this.rent = 50;
@@ -18,7 +18,7 @@ var Stats = function() {
  this.incMonth();
 
  this.timer = createTimer(false);
- this.timer.loop(26000, this.incMonth, this);
+ this.timer.loop(30000, this.incMonth, this);
  this.timer.start();
 }
 
@@ -27,7 +27,7 @@ Stats.prototype.incMonth = function() {
  this.expences = this.rent + this.salaries + this.supplies;
  this.money -= this.expences;
  this.reputation += this.reputationStanding;
- this.reputationStanding += this.reputationStanding>0?(-1-Math.floor(this.reputationStanding/10)):(1+Math.floor(-this.reputationStanding/10))
+ this.reputationStanding += this.reputationStanding>0?(-1-Math.floor(this.reputationStanding/10)):(1+Math.floor(-this.reputationStanding/15))
  this.update();
 }
 

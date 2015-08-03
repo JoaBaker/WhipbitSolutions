@@ -5,9 +5,9 @@ Game.prototype = {
   game.load.json('all_projects', 'assets/all_projects.json');
   game.load.image('ui_background', 'assets/ui_background.png');
   game.load.image('level_1', 'assets/level_1.png');
-  game.load.image('developer_1', 'assets/developer_1.png');
   game.load.image('window_background', 'assets/window_background.png');
   game.load.image('window_alert_background', 'assets/window_alert_background.png');
+  game.load.spritesheet('developers', 'assets/developers.png', 32, 48);
   game.load.spritesheet('button_whip', 'assets/button_whip.png', 20, 7);
   game.load.spritesheet('button_cancel', 'assets/button_cancel.png', 30, 7);
   game.load.spritesheet('button_cancel_long', 'assets/button_cancel_long.png', 40, 7);
@@ -31,8 +31,8 @@ Game.prototype = {
   projects.push(null);
   projects.push(null);
 
-  new Developer(230, 258, 'ViliX', 0, ['JS', 'CSS', 'SQL', 'Website Design']);
-  new Developer(430, 258, 'Tony', 200, ['Networking', 'Python']);
+  new Developer(230, 258, 'ViliX', 0, ['JS', 'CSS', 'SQL', 'Web Design', 'HTML5']);
+  new Developer(500, 258, 'Tony', 200, ['Networking', 'Python', 'PHP']);
   
   newProject = new NewProject();
   
@@ -45,7 +45,7 @@ Game.prototype = {
   newProject.unlockRandom(0.5);
  
   var timer = createTimer(false);
-  timer.loop(10000, function() { newProject.unlockRandom(0.1); }, this);
+  timer.loop(10000, function() { newProject.unlockRandom(0.2); }, this);
   timer.start(); 
   
   managementMenu.update();

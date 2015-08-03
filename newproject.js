@@ -23,6 +23,7 @@ NewProject = function() {
   windowOverlaySwitch(-1);
  }, this, 1, 1, 0));
  this.buttonAcceptText = this.g.add(createText(522, 112, 'ACCEPT', 16));
+ this.unavailableText = this.g.add(createText(470, 112, 'SKILLS MISSING', 16));
  this.g.visible = false;
  overlayGroups['newproject'] = this.g;
 
@@ -73,12 +74,20 @@ NewProject.prototype.update = function() {
   this.buttonPrevText.visible = false;
   this.buttonNext.visible = false;
   this.buttonNextText.visible = false;
+  this.unavailableText.visible = false;
  } else {
   var curProject = this.availableProjects[this.currentN-1];
   
   this.projectsIndicator.visible = true;
-  this.buttonAccept.visible = true;
-  this.buttonAcceptText.visible = true;
+  if(requirementsMatch(curProject['requirements'])) {
+   this.buttonAccept.visible = true;
+   this.buttonAcceptText.visible = true;
+   this.unavailableText.visible = false;
+  } else {
+   this.buttonAccept.visible = false;
+   this.buttonAcceptText.visible = false;
+   this.unavailableText.visible = true;
+  }
   this.buttonPrev.visible = true;
   this.buttonPrevText.visible = true;
   this.buttonNext.visible = true;
@@ -108,23 +117,23 @@ NewProject.prototype.update = function() {
   this.projectLength.setText(   'LENGTH (EST):    ' + lengthWords);
   
   var publicity = curProject['publicity'];
-  if(publicity < -150)
+  if(publicity < -10)
    publicityWords = 'Morally unacceptable';
-  else if(publicity >= -15 && publicity < -10)
+  else if(publicity >= -10 && publicity < -6)
    publicityWords = 'Really bad';
-  else if(publicity >= -10 && publicity < -5)
+  else if(publicity >= -6 && publicity < -3)
    publicityWords = 'Bad';
-  else if(publicity >= -5 && publicity < -1)
+  else if(publicity >= -3 && publicity < -1)
    publicityWords = 'Slightly negative';
-  else if(publicity >= -1 && publicity < 4)
+  else if(publicity >= -1 && publicity < 1)
    publicityWords = 'Mostly neutral';
-  else if(publicity >= 4 && publicity < 10)
+  else if(publicity >= 1 && publicity < 3)
    publicityWords = 'Slightly positive';
-  else if(publicity >= 10 && publicity < 15)
+  else if(publicity >= 3 && publicity < 6)
    publicityWords = 'Great';
-  else if(publicity >= 15 && publicity < 20)
+  else if(publicity >= 6 && publicity < 10)
    publicityWords = 'Fantastic';
-  else if(publicity >= 20)
+  else if(publicity >= 10)
    publicityWords = "Couldn't be better";
   else
    publicityWords = 'N/A';
@@ -147,9 +156,12 @@ NewProject.prototype.unlock = function(i) {
 }
 
 NewProject.prototype.unlockRandom = function(odds) {
- var probability = 0.4+stats.reputation/150.0 - this.availableProjects.length/13.0;
+ if(Math.random() > 0.9) {
+  this.availableProjects.splice(Math.floor(Math.random() * this.availableProjects.length), 1);
+ }
+
+ var probability = 0.4+stats.reputation/200.0 - this.availableProjects.length/13.0;
  probability += odds;
- 
  if(Math.random() > probability)
   return;
 
@@ -158,34 +170,34 @@ NewProject.prototype.unlockRandom = function(odds) {
  while(remProjects.length > 0) {
   var i = Math.floor(Math.random() * remProjects.length);
   var project = remProjects[i];
-  if(project['level'] == studio.level &&
+  if(project['level'].indexOf(studio.level) != -1 &&
   (typeof(project['active']) == 'undefined' || !project['active']) &&
-  (typeof(project['date_finished']) == 'undefined' || stats.month - project['date_finished'] > 10) &&
-  requirementsMatch(project['requirements'])) {
-   this.unlock(this.allProjects.indexOf(project));
-   return;
+  (typeof(project['date_finished']) == 'undefined' || stats.month - project['date_finished'] > 10)) {
+   if(Math.random() > 0.7 || requirementsMatch(project['requirements'])) {
+    this.unlock(this.allProjects.indexOf(project));
+    return;
+   }
   }
   remProjects.splice(i, 1);
- }
- 
- function requirementsMatch(skills) {
-  for(var d = 0; d < developers.length; d++) {
-   var all = true;
-   for(var i = 0; i < skills.length; i++) {
-    var found = false;
-    for(var j = 0; j < developers[d].skills.length; j++) {
-     if(skills[i] == developers[d].skills[j]) {
-      found = true;
-      break;
-     } 
-    }
-    if(!found)
-     all = false;
+ } 
+}
+
+function requirementsMatch(skills) {
+ for(var d = 0; d < developers.length; d++) {
+  var all = true;
+  for(var i = 0; i < skills.length; i++) {
+   var found = false;
+   for(var j = 0; j < developers[d].skills.length; j++) {
+    if(skills[i] == developers[d].skills[j]) {
+     found = true;
+     break;
+    } 
    }
-   if(all)
-    return true;
+   if(!found)
+    all = false;
   }
-  return false;
+  if(all)
+   return true;
  }
- 
+ return false;
 }
