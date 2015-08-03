@@ -5,16 +5,16 @@
   "requirements": ["JS", "CSS"],
   "length":9,
   "publicity":3,
-  "reward":100,
+  "reward":150,
   "level":1
  },
  {
   "title":"DATA ENTRY",
-  "description":"We need to get some data from\nan Excel document into our database.\nWe would do it ourselves,\nbut we're busy.",
-  "requirements": ["MySQL"],
+  "description":"We need to automate parsing some\ndata from an Excel document into\nour database.\nWe would do it ourselves,\nbut we're busy.",
+  "requirements": ["SQL"],
   "length":4,
   "publicity":2,
-  "reward":50,
+  "reward":100,
   "level":1
  },
  {
@@ -23,16 +23,16 @@
   "requirements": ["Python", "Networking"],
   "length":6,
   "publicity":-3,
-  "reward":250,
+  "reward":400,
   "level":1
  },
  {
   "title":"WEBSITE MOCKUP",
-  "description":"Our only designed is sick (long-term)\nand we need to have a basic\nwebsite template for presentation.",
+  "description":"Our only designed is sick (long-term)\nand we need to have at least basic\nwebsite template for presentation.",
   "requirements": ["Website Design"],
   "length":5,
   "publicity":4,
-  "reward":100,
+  "reward":250,
   "level":1
  }
 ]

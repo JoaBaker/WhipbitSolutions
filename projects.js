@@ -1,16 +1,23 @@
 var posX = [253, 513, 253, 513];
 var posY = [5, 5, 73, 73];
 
+var lastProjectLocation = -1;
+
 var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding, projectAssigment) {
  this.rewardMoney = rewardMoney;
  this.rewardReputationStanding = rewardReputationStanding;
  this.description = description;
  this.name = name;
  this.projectAssigment = projectAssigment;
+ this.requirements = projectAssigment['requirements'];
 
  var place = 0;
  for(; place < projects.length; place++)
   if(projects[place] == null) break; 
+ 
+ if(lastProjectLocation != -1)
+  place = lastProjectLocation;
+
  projects[place] = this;
  this.place = place;
 
@@ -20,7 +27,14 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.progressText = this.g.add(createText(105, 150, 'PROGRESS: 0%', 16)); 
  this.g.add(createText(105, 190, 'REWARD: $' + rewardMoney, 16)); 
  this.g.add(createText(105, 230, 'START DATE (MONTH): ' + stats.month, 16)); 
- this.g.add(createText(105, 270, 'PUBLICITY: ' + this.rewardReputationStanding + '*', 16)); 
+ this.g.add(createText(395, 190, 'PUBLICITY: ' + this.rewardReputationStanding + '*', 16)); 
+ var requirementsWords = '';
+ for(var i = 0; i < this.requirements.length; i++) {
+  requirementsWords += this.requirements[i];
+  if(i != this.requirements.length -1)
+   requirementsWords += ', ';
+ }
+ this.g.add(createText(105, 270, 'REQUIREMENTS: ' + requirementsWords, 16)); 
  this.g.add(createText(105, 305, description, 16)); 
  this.g.add(createButton(105, 437, 'button_whip', function() { this.gShip.visible = true; }, this, 1, 1, 0));
  this.g.add(createText(113, 444, 'SHIP', 16)); 
@@ -45,7 +59,7 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  }, this, 1, 1, 0));
  this.gShip.add(createText(285, 344, 'YES', 16)); 
  this.gShip.add(createButton(410, 337, 'button_whip', function() { this.gShip.visible = false; }, this, 1, 1, 0));
- this.gShip.add(createText(418, 344, 'NOPE', 16)); 
+ this.gShip.add(createText(418, 344, 'BACK', 16)); 
  this.g.add(this.gShip);
  this.gShip.visible = false;
  

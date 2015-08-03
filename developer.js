@@ -5,6 +5,7 @@ var Developer = function(posX, posY, name, salary, skills) {
  this.salary = salary;
  
  this.exp = 0.0;
+ this.skillPoints = 0;
  this.level = 1;
  stats.salaries += salary;
  this.startMonth = stats.month;
@@ -54,7 +55,14 @@ var Developer = function(posX, posY, name, salary, skills) {
  this.projects = [];
  this.speed = 10;
  developers.push(this);
- studio.updateSkills();
+
+ for(var i = 0; i < skills.length; i++) {
+  for(var j = 0; j < allSkills.length; j++) {
+   if(allSkills[j][0] == skills[i] && allSkillsAvailable.indexOf(allSkills[j]) == -1) {
+    allSkillsAvailable.push(allSkills[j]);
+   }
+  }
+ }
 }
 
 Developer.prototype.develop = function() {
@@ -97,6 +105,8 @@ Developer.prototype.incMotivation = function() {
 }
 
 Developer.prototype.tryAddProject = function(project) {
+ if(this.projects.indexOf(project) != -1)
+  return false;
  for(var i = 0; i < project.projectAssigment['requirements'].length; i++) {
   var found = false;
   for(var j = 0; j < this.skills.length; j++) {
@@ -106,22 +116,31 @@ Developer.prototype.tryAddProject = function(project) {
    } 
   }
   if(!found) {
-   return;
+   return false;
   }
  }
  
  this.projects.push(project);
+ return true;
+}
+
+Developer.prototype.removeProject = function(project) {
+ this.projects.splice(this.projects.indexOf(project), 1);
+ this.fPointLoaderProgress = 16;
+ this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
 }
 
 Developer.prototype.incExp = function(val) {
  this.exp += val;
- if(this.exp > this.level * 100) {
+ if(this.exp >= this.level * 100) {
   this.exp = 0;
   this.incLevel();
  }
 }
 
 Developer.prototype.incLevel = function() {
+ this.salary += this.level * 20;
+ stats.salaries += this.level * 20;
  this.level ++;
- console.log('huyyzah new level');
+ this.skillPoints++;
 }

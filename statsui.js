@@ -18,7 +18,7 @@ var Stats = function() {
  this.incMonth();
 
  this.timer = createTimer(false);
- this.timer.loop(20000, this.incMonth, this);
+ this.timer.loop(26000, this.incMonth, this);
  this.timer.start();
 }
 

@@ -19,7 +19,7 @@ NewProject = function() {
   var nProject = new Project(curProject['length'], 6, curProject['title'], curProject['description'], curProject['reward'], curProject['publicity'], curProject);
   for(var i = 0; i < developers.length; i++)
    developers[i].tryAddProject(nProject);
-  this.unlockRandom(true);
+  this.unlockRandom(0.4);
   windowOverlaySwitch(-1);
  }, this, 1, 1, 0));
  this.buttonAcceptText = this.g.add(createText(522, 112, 'ACCEPT', 16));
@@ -36,11 +36,13 @@ NewProject = function() {
 NewProject.prototype.replace = function(place) {
  projects[place] = null;
 
- var button = createButton(posX[place]-8, posY[place], 'button_project', function() {
+ var button = createButton(posX[place]-8, posY[place], 'button_project', function(b) {
   this.currentN = 1;
   this.update();
+  lastProjectLocation = b.place;
   windowOverlaySwitch('newproject');
  }, this, 1, 1, 0);
+ button.place = place;
  var text = createText(posX[place]+65, posY[place]+40, 'NEW PROJECT', 16);
 }
 
@@ -144,10 +146,9 @@ NewProject.prototype.unlock = function(i) {
  this.allProjects[i]['active'] = true;
 }
 
-NewProject.prototype.unlockRandom = function(highOdds) {
+NewProject.prototype.unlockRandom = function(odds) {
  var probability = 0.4+stats.reputation/150.0 - this.availableProjects.length/13.0;
- if(highOdds)
-  probability += 0.4;
+ probability += odds;
  
  if(Math.random() > probability)
   return;
