@@ -37,7 +37,7 @@ Stats.prototype.incMonth = function() {
    projects[i].readyToCount = true;
  }
  this.update();
- hireDev.randomHire();
+ hireDev.randomHire(true);
  if(this.money < 0)
   console.log('GONE BAKRUPT');
 }
@@ -55,7 +55,7 @@ var BottomUI = function() {
  createButton(193, 517, 'button_bottom_ui', function() { windowOverlaySwitch('upgrades');}, this, 1, 1, 0);
  createText(218, 525, 'UPGRADES', 16); 
  
- createButton(381, 517, 'button_bottom_ui', function() { }, this, 1, 1, 0);
+ createButton(381, 517, 'button_bottom_ui', function() { windowOverlaySwitch('help'); }, this, 1, 1, 0);
  createText(439, 525, 'HELP', 16); 
  
  createButton(571, 517, 'button_bottom_ui', function() { window.open('https://twitter.com/ViliX64', '_blank'); }, this, 1, 1, 0);

@@ -26,9 +26,10 @@ Game.prototype = {
   background = createSprite(0, 148, 'level_1');
   studio = new Studio();
   stats = new Stats();
+  indicators = new Indicators();
   new BottomUI();
   hireDev = new HireDev();
-  hireDev.randomHire();
+  hireDev.randomHire(false);
   
   projects.push(null);
   projects.push(null);
@@ -44,17 +45,17 @@ Game.prototype = {
   newProject.replace(2);
   newProject.replace(3);
   
-  newProject.unlockRandom(1);
-  newProject.unlockRandom(0.5);
+  newProject.unlockRandom(1, false);
+  newProject.unlockRandom(0.5, false);
  
   var timer = createTimer(false);
-  timer.loop(10000, function() { newProject.unlockRandom(0.2); }, this);
+  timer.loop(10000, function() { newProject.unlockRandom(0.25, true); }, this);
   timer.start(); 
   
   managementMenu.update();
  }
 }
-var stats, newProject, studio;
+var stats, newProject, studio, indicators;
 var windowOverlay;
 var developers = [], projects = [];
 var background;

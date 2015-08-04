@@ -34,6 +34,9 @@ var OverlayMenu = function() {
  
  statsMenu = new StatsMenu();
  overlayGroups['stats'] = statsMenu.g;
+ 
+ helpMenu = new HelpMenu();
+ overlayGroups['help'] = helpMenu.g;
 }
 
 var managementMenu, upgradesMenu, statsMenu;
@@ -41,6 +44,31 @@ var managementMenu, upgradesMenu, statsMenu;
 var UpgradesMenu = function() {
  this.g = game.add.group(); 
  this.g.add(createText(105, 110, 'UPGRADES', 16)); 
+ this.g.visible = false;
+}
+
+var HelpMenu = function() {
+ this.g = createText(105, 110, 'Welcome to Whipbit Solutions\n\n' +
+ 'As a fresh leader of this company,\n' +
+ 'your goal is to not to be in debt\n' +
+ 'at the end of each month.\n\n' + 
+ 
+ 'You can gain money by finishing\n' +
+ 'projects. For a new project,\n' +
+ 'click on one of those \'NEW PROJECT\'\n' +
+ 'buttons. You can have up to\n' + 
+ '4 projects at the same time, but\n' + 
+ 'you\'ll have to pay penalty if you\n' + 
+ 'won\'t finish them before\n' + 
+ 'the deadline.\n\n' +
+ 
+ 'When your company gets bigger, you\n' + 
+ 'can hire more devs in the\n' +
+ 'managements menu.\n' + 
+ 'This menu can be also useful for\n' + 
+ 'upgrading developer\'s skills.\n\n' +
+
+ 'Good luck.', 16); 
  this.g.visible = false;
 }
 
