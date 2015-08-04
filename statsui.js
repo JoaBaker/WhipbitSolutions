@@ -7,15 +7,15 @@ var Stats = function() {
  this.monthText = createText(12, 95, '', 16);
  this.monthText.align = 'right';
  
- this.month = 0;
- this.expences = 0;
+ this.month = 1;
  this.money = 380;
  this.reputation = 10;
  this.reputationStanding = 0;
  this.rent = 50;
  this.salaries = 0;
  this.supplies = 30;
- this.incMonth();
+ this.expences = this.rent + this.salaries + this.supplies;
+ this.update();
 
  this.timer = createTimer(false);
  this.timer.loop(30000, this.incMonth, this);
@@ -37,6 +37,7 @@ Stats.prototype.incMonth = function() {
    projects[i].readyToCount = true;
  }
  this.update();
+ hireDev.randomHire();
  if(this.money < 0)
   console.log('GONE BAKRUPT');
 }

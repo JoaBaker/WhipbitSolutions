@@ -70,9 +70,10 @@ ManagementMenu.prototype.displayDev = function(i) {
  this.gDev.add(createText(105, 150, developer.description, 16)); 
  this.gDev.add(createText(105, 220, 'Employed for ' + duration + ' month' + (duration==1?'':'s'), 16)); 
  this.gDev.add(createText(105, 260, 'Level: ' + developer.level, 16)); 
- this.gDev.add(createText(105, 300, 'Salary: $' + developer.salary, 16)); 
- this.gDev.add(createText(105, 340, 'Speed: ' + developer.speed, 16)); 
- this.gDev.add(createText(105, 380, 'XP: ' + Math.floor(developer.exp) + '^/' + (developer.level * 100) + '^', 16)); 
+ this.gDev.add(createText(105, 290, 'Salary: $' + developer.salary, 16)); 
+ this.gDev.add(createText(105, 320, 'Speed: ' + developer.speed, 16)); 
+ this.gDev.add(createText(105, 350, 'XP: ' + Math.floor(developer.exp) + '^/' + (developer.level * 100) + '^', 16)); 
+ this.gDev.add(createText(105, 380, 'SKILL POINTS: ' + developer.skillPoints, 16)); 
 
 this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i); }, this, 1, 1, 0));
  this.gDev.add(createText(114, 444, 'FIRE', 16));  

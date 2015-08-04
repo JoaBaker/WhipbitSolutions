@@ -28,9 +28,8 @@ Game.prototype = {
   stats = new Stats();
   new BottomUI();
   hireDev = new HireDev();
-  hireDev.unlock(0);
-  hireDev.unlock(1);
-
+  hireDev.randomHire();
+  
   projects.push(null);
   projects.push(null);
   projects.push(null);

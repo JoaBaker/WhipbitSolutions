@@ -96,7 +96,7 @@ Developer.prototype.updateLoader = function() {
    continue;
   }
 
-  this.fPointLoaderProgress -= this.motivation/40 + .23 + this.speed/70;
+  this.fPointLoaderProgress -= this.motivation/40 + .20 + this.speed/70;
   if(this.fPointLoaderProgress <= 0) {
    var aptSkills = this.projectSkills[i];
    for(var j = 0; j < aptSkills.length; j++) {

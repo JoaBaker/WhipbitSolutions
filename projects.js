@@ -34,7 +34,7 @@ var Project = function (projectAssigment) {
  this.g.add(createText(105, 110, this.name, 16)); 
  this.progressText = this.g.add(createText(105, 150, 'PROGRESS: 0%', 16)); 
  this.g.add(createText(105, 190, 'REWARD: $' + this.rewardMoney, 16)); 
- this.g.add(createText(105, 230, 'START DATE (MONTH): ' + stats.month, 16)); 
+ this.remMonthsText = this.g.add(createText(105, 230, 'REMAINING MONTHS ' + this.monthsLeft, 16)); 
  this.g.add(createText(395, 190, 'PUBLICITY: ' + this.rewardReputationStanding + '*', 16)); 
  var requirementsWords = '';
  for(var i = 0; i < this.requirements.length; i++) {
@@ -123,6 +123,7 @@ Project.prototype.display = function() {
  var tmpAssigned = this.assigned;
  if(tmpAssigned < 0) tmpAssigned = 0;
  this.progressText.setText('PROGRESS: ' + Math.floor(tmpAssigned/this.capacity*100) + '%'); 
+ this.remMonthsText.setText('REMAINING MONTHS: ' + this.monthsLeft); 
  windowOverlaySwitch(this.name+this.description);
 }
 

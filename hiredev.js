@@ -11,7 +11,7 @@ HireDev = function() {
  
  this.devName = this.g.add(createText(105, 110, '', 16));
  this.devDesc = this.g.add(createText(105, 150, '', 16));
- this.g.add(createText(105, 370, 'SKILLS:', 16));
+ this.devSkillsText = this.g.add(createText(105, 370, 'SKILLS:', 16));
  this.devSkills = this.g.add(createText(220, 370, '', 16));
  this.devSalary = this.g.add(createText(105, 230, '', 16));
  this.devHireFee = this.g.add(createText(105, 265, '', 16));
@@ -26,11 +26,15 @@ HireDev = function() {
  this.g.add(createButton(588, 437, 'button_whip', function() { this.g.visible = false; }, this, 1, 1, 0));
  this.g.add(createText(597, 444, 'BACK', 16));
  
- this.g.add(createSprite(521, 249, 'placeholder_table'));
+ this.placeholderTable = this.g.add(createSprite(521, 249, 'placeholder_table'));
  this.prevSprite = this.g.add(createSprite(520, 160, 'developers'));
 
- this.buttonHire = this.g.add(createButton(478, 103, 'button_bottom_ui', function() {
-
+ this.buttonHire = this.g.add(createButton(478, 103, 'button_bottom_ui', function(b) {
+  new Developer(b.i);
+  this.g.visible = false;
+  windowOverlaySwitch(-1);
+  managementMenu.update();
+  this.update();
  }, this, 1, 1, 0));
  this.buttonHireText = this.g.add(createText(535, 112, 'HIRE', 16));
  this.unavailableText = this.g.add(createText(400, 112, 'NOT ENOUGHT MONEY', 16));
@@ -49,6 +53,7 @@ HireDev.prototype.showNext = function(off) {
 }
 
 HireDev.prototype.display = function() {
+ this.currentN = 1;
  this.update();
  this.g.visible = true;
  game.world.bringToTop(this.g);
@@ -56,9 +61,55 @@ HireDev.prototype.display = function() {
 
 HireDev.prototype.update = function() {
  this.maxN = availableDevelopers.length;
+ 
+ if(this.maxN == 0) {
+  this.devName.setText('No candidates\n\nPositive reputation will attract\nmore next month');
+  this.devDesc.visible = false;
+  this.devSalary.visible = false;
+  this.devHireFee.visible = false;
+  this.devSpeed.visible = false;
+  this.devSpeed.visible = false;
+  this.devSkillPoints.visible = false;
+  this.devSkills.visible = false;
+  this.devSkillsText.visible = false;
+  this.prevSprite.visible = false;
+  this.placeholderTable.visible = false;
+
+  this.buttonHire.visible = false;
+  this.buttonHireText.visible = false;
+  this.unavailableText.visible = false;
+  this.devsIndicator.visible = false;
+  this.buttonPrev.visible = false;
+  this.buttonPrevText.visible = false;
+  this.buttonNext.visible = false;
+  this.buttonNextText.visible = false;
+  return;
+ }
+ 
+ this.devDesc.visible = true;
+ this.devSalary.visible = true;
+ this.devHireFee.visible = true;
+ this.devSpeed.visible = true;
+ this.devSpeed.visible = true;
+ this.devSkillPoints.visible = true;
+ this.devSkills.visible = true;
+ this.devSkillsText.visible = true;
+ this.prevSprite.visible = true;
+ this.placeholderTable.visible = true;
+ this.buttonHire.visible = false;
+ this.buttonHireText.visible = true;
+ this.unavailableText.visible = true;
+ this.devsIndicator.visible = true;
+ this.buttonPrev.visible = true;
+ this.buttonPrevText.visible = true;
+ this.buttonNext.visible = true;
+ this.buttonNextText.visible = true;
+
  this.devsIndicator.setText(this.currentN + '/' + this.maxN);
  var curDev = availableDevelopers[this.currentN-1];
-  
+ 
+ this.buttonHire.i = allDevelopers.indexOf(curDev);
+
  if(curDev['hire_fee'] <= stats.money) {
   this.buttonHire.visible = true;
   this.buttonHireText.visible = true;
@@ -107,4 +158,19 @@ HireDev.prototype.unlock = function(index) {
 HireDev.prototype.lock = function(index) {
  var v = availableDevelopers.indexOf(allDevelopers[index]);
  if(v != -1) availableDevelopers.splice(v, 1);
+}
+
+HireDev.prototype.randomHire = function() {
+ // do some more calculations in relations with salary and hire fee
+ for(var i = 0; i < 2; i++) {
+  if(Math.random() > 0.40-stats.reputation/90 + availableDevelopers.length/14) {
+   // 10 attempts
+   for(var j = 0; j < 10; j++) {
+    if(this.unlock(Math.floor(Math.random() * allDevelopers.length) ))
+     break;
+   }
+  } else if(Math.random() > 0.5) {
+   this.lock(Math.floor(Math.random() * availableDevelopers.length));
+  }
+ }
 }
