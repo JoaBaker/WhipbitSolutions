@@ -8,6 +8,7 @@ var Stats = function() {
  this.monthText.align = 'right';
  
  this.month = 1;
+ this.days = -1;
  this.money = 3000;
  this.reputation = 10;
  this.reputationStanding = 0;
@@ -15,10 +16,11 @@ var Stats = function() {
  this.salaries = 0;
  this.supplies = 0;
  this.expences = this.rent + this.salaries + this.supplies;
+ this.incDay();
  this.update();
 
  this.timer = createTimer(false);
- this.timer.loop(30000, this.incMonth, this);
+ this.timer.loop(1000, this.incDay, this);
  this.timer.start();
 }
 
@@ -42,9 +44,17 @@ Stats.prototype.incMonth = function() {
  hireDev.randomHire(true);
 }
 
+Stats.prototype.incDay = function() {
+ this.days++;
+ if(this.days >= 30) {
+  this.incMonth();
+  this.days = 0;
+ }
+ this.monthText.setText('MONTH: (' + (this.days > 20?'0':'') + (30-this.days) + ')  \n' + this.month);
+}
+
 Stats.prototype.update = function() {
  this.expences = this.rent + this.salaries + this.supplies;
- this.monthText.setText('MONTH:       \n' + this.month);
  this.moneyText.setText('MONEY:       \n$'+ this.money);
  this.reputationText.setText('REPUTATION:   \n'+ this.reputation +'*');
 }
