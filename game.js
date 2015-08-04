@@ -8,6 +8,7 @@ Game.prototype = {
   game.load.image('level_1', 'assets/level_1.png');
   game.load.image('window_background', 'assets/window_background.png');
   game.load.image('window_alert_background', 'assets/window_alert_background.png');
+  game.load.image('placeholder_table', 'assets/placeholder_table.png');
   game.load.spritesheet('developers', 'assets/developers.png', 32, 48);
   game.load.spritesheet('button_whip', 'assets/button_whip.png', 20, 7);
   game.load.spritesheet('button_cancel', 'assets/button_cancel.png', 30, 7);
@@ -26,10 +27,9 @@ Game.prototype = {
   studio = new Studio();
   stats = new Stats();
   new BottomUI();
-  availableDevelopers = [];
-  allDevelopers = game.cache.getJSON('all_developers');
-  availableDevelopers.push(allDevelopers[0]);
   hireDev = new HireDev();
+  hireDev.unlock(0);
+  hireDev.unlock(1);
 
   projects.push(null);
   projects.push(null);
@@ -59,7 +59,7 @@ var stats, newProject, studio;
 var windowOverlay;
 var developers = [], projects = [];
 var background;
-var allDevelopers, availableDevelopers;
+var allDevelopers, availableDevelopers = [];
 
 var timers = [];
 function pause(b) {

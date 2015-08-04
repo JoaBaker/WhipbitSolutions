@@ -1,4 +1,6 @@
 var Developer = function(id) {
+ allDevelopers[id].active = true;
+ hireDev.lock(id);
  developers.push(this);
  this.posX = studio.posX[studio.level-1][developers.length-1];
  this.posY = studio.posY[studio.level-1][developers.length-1];
