@@ -3,27 +3,27 @@
   "name":         "ViliX",
   "speed":        10,
   "skills":       ["JS", "PHP", "SQL"],
-  "salary" :      100,
-  "hire_fee":     200,
+  "salary" :      400,
+  "hire_fee":     300,
   "description":  "Fantastic at being average\nSuper cool\nSuffers from narcissism",
   "skill_points": 2
  },
  {
   "name":         "Milton",
   "speed":        7,
-  "skills":       ["Python", "Networking", "SQL"],
-  "salary" :      100,
+  "skills":       ["Python", "Networking", "SQL", ".NET", "JS"],
+  "salary" :      700,
   "hire_fee":     0,
-  "description":  "Great at being average\nSuper cool",
+  "description":  "Costs a log, but those\nskills are surely useful.",
   "skill_points": 1
  },
  {
   "name":         "Moran",
   "speed":        14,
-  "skills":       ["CSS", "HTML5"],
-  "salary" :      200,
-  "hire_fee":     300,
-  "description":  "Great at being average\nSuper cool",
+  "skills":       ["JS", "CSS", "HTML5"],
+  "salary" :      300,
+  "hire_fee":     100,
+  "description":  "Interested in web technologies",
   "skill_points": 3
  },
  {
@@ -31,17 +31,17 @@
   "speed":        7,
   "skills":       [".NET", "Python", "Networking", "SQL"],
   "salary" :      300,
-  "hire_fee":     500,
-  "description":  "Great at being average\nSuper cool",
+  "hire_fee":     1000,
+  "description":  "Useful in dubious projects\nLow salary",
   "skill_points": 0
  },
  {
   "name":         "Hewitt",
   "speed":        20,
   "skills":       ["JS"],
-  "salary" :      250,
-  "hire_fee":     400,
-  "description":  "Great at being average\nSuper cool",
+  "salary" :      150,
+  "hire_fee":     100,
+  "description":  "Can't do much right now,\nbut fast and\nwilling to learn.",
   "skill_points": 2
  }
 ]

@@ -22,10 +22,13 @@ Game.prototype = {
  },
 
  create : function() {
+  developers = [];
+  projects = [];
+  availableDevelopers = [];
   createSprite(0, 0, 'ui_background');
   background = createSprite(0, 148, 'level_1');
-  studio = new Studio();
   stats = new Stats();
+  studio = new Studio();
   indicators = new Indicators();
   new BottomUI();
   hireDev = new HireDev();
@@ -49,7 +52,7 @@ Game.prototype = {
   newProject.unlockRandom(0.5, false);
  
   var timer = createTimer(false);
-  timer.loop(10000, function() { newProject.unlockRandom(0.25, true); }, this);
+  timer.loop(12000, function() { newProject.unlockRandom(0.25, true); }, this);
   timer.start(); 
   
   managementMenu.update();
@@ -57,9 +60,9 @@ Game.prototype = {
 }
 var stats, newProject, studio, indicators;
 var windowOverlay;
-var developers = [], projects = [];
+var developers, projects;
 var background;
-var allDevelopers, availableDevelopers = [];
+var allDevelopers, availableDevelopers;
 
 var timers = [];
 function pause(b) {

@@ -8,12 +8,12 @@ var Stats = function() {
  this.monthText.align = 'right';
  
  this.month = 1;
- this.money = 380;
+ this.money = 3000;
  this.reputation = 10;
  this.reputationStanding = 0;
- this.rent = 50;
+ this.rent = 0;
  this.salaries = 0;
- this.supplies = 30;
+ this.supplies = 0;
  this.expences = this.rent + this.salaries + this.supplies;
  this.update();
 
@@ -23,6 +23,8 @@ var Stats = function() {
 }
 
 Stats.prototype.incMonth = function() {
+ if(this.money < 0)
+  console.log('GONE BAKRUPT');
  this.month++;
  this.expences = this.rent + this.salaries + this.supplies;
  this.money -= this.expences;
@@ -38,11 +40,10 @@ Stats.prototype.incMonth = function() {
  }
  this.update();
  hireDev.randomHire(true);
- if(this.money < 0)
-  console.log('GONE BAKRUPT');
 }
 
 Stats.prototype.update = function() {
+ this.expences = this.rent + this.salaries + this.supplies;
  this.monthText.setText('MONTH:       \n' + this.month);
  this.moneyText.setText('MONEY:       \n$'+ this.money);
  this.reputationText.setText('REPUTATION:   \n'+ this.reputation +'*');

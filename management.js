@@ -196,7 +196,7 @@ ManagementMenu.prototype.promoteDev = function(i) {
   this.gDevProm.add(createText(170, 230, 'Promote ' + developer.name + '\n   to level ' + (developer.level + 1) + ' for $' + price + '?', 16)).align = 'center';
   this.gDevProm.add(createButton(272, 337, 'button_whip', function() {
    stats.money -= price;
-   developer.incExp(developer.level * 100 - developer.exp);
+   developer.incExp(developer.level * 100 - developer.exp, false);
    this.gDevProm.destroy(true);
    this.gDev.destroy(true);
    this.displayDev(i);

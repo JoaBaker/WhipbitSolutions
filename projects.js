@@ -158,6 +158,8 @@ Project.prototype.finished = function() {
 Project.prototype.decMonth = function() {
  this.monthsLeft--;
  this.monthsIndicator.setText(''+this.monthsLeft);
+ if(this.monthsLeft <= 0)
+  console.log('deadline!!');
 }
 
 Project.prototype.removeFromLists = function() {

@@ -112,7 +112,7 @@ Developer.prototype.updateLoader = function() {
    var target = project.getPosition(skill);
    new FPoint(this.posX+65, this.posY, target, project); 
    this.fPointLoaderProgress = 16;
-   this.incExp(0.5+1/this.level);
+   this.incExp(0.5+1/this.level, true);
   }
   this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
   break;
@@ -127,7 +127,7 @@ Developer.prototype.updateMotivation = function() {
 Developer.prototype.incMotivation = function() {
  this.motivation += 1;
  if(this.motivation > 16) this.motivation = 16.12; 
- else this.incExp(0.1);
+ else this.incExp(0.1, true);
  this.updateMotivation();
 }
 
@@ -161,18 +161,19 @@ Developer.prototype.removeProject = function(project) {
  this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
 }
 
-Developer.prototype.incExp = function(val) {
+Developer.prototype.incExp = function(val, indicate) {
  this.exp += val;
  if(this.exp >= this.level * 100) {
   this.exp = 0;
-  this.incLevel();
+  this.incLevel(indicate);
  }
 }
 
-Developer.prototype.incLevel = function() {
- this.salary += this.level * 20;
- stats.salaries += this.level * 20;
+Developer.prototype.incLevel = function(indicate) {
+ this.salary += this.level * 20 + 30;
+ stats.salaries += this.level * 20 + 30;
  this.level ++;
  this.skillPoints++;
  this.speed+=Math.floor(Math.random()*2)+1;
+ if(indicate) indicators.devLvlUp(this.name);
 }
