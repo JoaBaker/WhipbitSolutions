@@ -16,7 +16,7 @@ NewProject = function() {
  this.buttonAccept = this.g.add(createButton(478, 103, 'button_bottom_ui', function() {
   var curProject = this.availableProjects[this.currentN-1];
   this.availableProjects.splice(this.currentN-1, 1);
-  var nProject = new Project(curProject['length'], 6, curProject['title'], curProject['description'], curProject['reward'], curProject['publicity'], curProject);
+  var nProject = new Project(curProject);
   for(var i = 0; i < developers.length; i++)
    developers[i].tryAddProject(nProject);
   this.unlockRandom(0.4);

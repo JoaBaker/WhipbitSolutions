@@ -10,6 +10,7 @@ var Developer = function(id) {
  this.salary = this.src['salary'];
  this.skillPoints = this.src['skill_points'];
  this.speed = this.src['speed'];
+ this.description = this.src['description'];
 
  this.exp = 0.0;
  this.level = 1;

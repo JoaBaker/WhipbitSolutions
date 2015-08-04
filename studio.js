@@ -2,7 +2,7 @@ Studio = function() {
  this.level = 0;
  this.capacities = [2, 3, 4];
  this.posX = [
-  [250, 500],
+  [540, 250],
   [250, 500, 600],
   [250, 500, 100, 400]
  ];

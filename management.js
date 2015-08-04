@@ -70,11 +70,12 @@ ManagementMenu.prototype.displayDev = function(i) {
  this.gDev.add(createButton(0, 0, 'window_background', function() {}, 0, 0, 0));
  this.gDev.add(createText(105, 110, developer.name, 16));
  var duration = stats.month - developer.startMonth;
- this.gDev.add(createText(105, 150, 'Pressing buttons for ' + duration + ' month' + (duration==1?'':'s'), 16)); 
- this.gDev.add(createText(105, 190, 'Salary: $' + developer.salary, 16)); 
- this.gDev.add(createText(500, 190, 'Speed: ' + developer.speed, 16)); 
- this.gDev.add(createText(105, 230, 'Experience: ' + Math.floor(developer.exp) + '^/' + (developer.level * 100) + '^', 16)); 
- this.gDev.add(createText(500, 230, 'Level: ' + developer.level, 16)); 
+ this.gDev.add(createText(105, 150, developer.description, 16)); 
+ this.gDev.add(createText(105, 220, 'Employed for ' + duration + ' month' + (duration==1?'':'s'), 16)); 
+ this.gDev.add(createText(105, 260, 'Level: ' + developer.level, 16)); 
+ this.gDev.add(createText(105, 300, 'Salary: $' + developer.salary, 16)); 
+ this.gDev.add(createText(105, 340, 'Speed: ' + developer.speed, 16)); 
+ this.gDev.add(createText(105, 380, 'XP: ' + Math.floor(developer.exp) + '^/' + (developer.level * 100) + '^', 16)); 
 
 this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i); }, this, 1, 1, 0));
  this.gDev.add(createText(114, 444, 'FIRE', 16));  
@@ -90,7 +91,7 @@ this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i)
    offQ++;
    continue;
   }
-  var project_select = this.gDev.add(createButton(125, posY[q-offQ], 'button_project_select', function(b) {
+  var project_select = this.gDev.add(createButton(410, posY[q-offQ], 'button_project_select', function(b) {
    if(b.avail_indicator.frame == 1) {
     if(developers[i].tryAddProject(b.project)) {
      b.avail_indicator.frame = 0;
@@ -102,11 +103,11 @@ this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i)
     b.avail_indicator.frame = 1;
    }
   }, this, 1, 1, 0));
-  project_select.avail_indicator = this.gDev.add(createButton(105, posY[q-offQ], 'button_allow', function() {  }, this, 0, 0, 0));
+  project_select.avail_indicator = this.gDev.add(createButton(390, posY[q-offQ], 'button_allow', function() {  }, this, 0, 0, 0));
   project_select.project = projects[q];
   if(developers[i].projects.indexOf(projects[q]) == -1)
    project_select.avail_indicator.frame = 1;
-  this.gDev.add(createText(136, posY[q-offQ]+7, projects[q].name, 16));  
+  this.gDev.add(createText(431, posY[q-offQ]+7, projects[q].name, 16));  
  }
 
  this.gDev.add(createButton(588, 437, 'button_whip', function() { this.gDev.destroy(true); }, this, 1, 1, 0));

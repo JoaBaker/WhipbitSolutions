@@ -3,17 +3,21 @@ var posY = [5, 5, 73, 73];
 
 var lastProjectLocation = -1;
 
-var Project = function (width, height, name, description, rewardMoney, rewardReputationStanding, projectAssigment) {
- this.rewardMoney = rewardMoney;
- this.rewardReputationStanding = rewardReputationStanding;
- this.description = description;
- this.name = name;
+var Project = function (projectAssigment) {
  this.projectAssigment = projectAssigment;
+ this.rewardMoney = projectAssigment['reward'];
+ this.rewardReputationStanding = projectAssigment['publicity'];
+ this.description = projectAssigment['description'];
+ this.name = projectAssigment['title'];
  this.requirements = projectAssigment['requirements'];
- this.cellWidth = width/this.requirements.length;
+ this.monthsLeft = projectAssigment['time'];
+ this.height = 5;
+ this.width = projectAssigment['length'];
+ 
  this.cells = {};
+ this.cellWidth = this.width/this.requirements.length;
  for(var i = 0; i < this.requirements.length; i++)
-  this.cells[this.requirements[i]] = this.cellWidth*height;
+  this.cells[this.requirements[i]] = this.cellWidth*this.height;
 
  var place = 0;
  for(; place < projects.length; place++)
@@ -25,11 +29,11 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  projects[place] = this;
  this.place = place;
 
- // group for overlay
+ // group for this.overlay
  this.g = game.add.group(); 
- this.g.add(createText(105, 110, name, 16)); 
+ this.g.add(createText(105, 110, this.name, 16)); 
  this.progressText = this.g.add(createText(105, 150, 'PROGRESS: 0%', 16)); 
- this.g.add(createText(105, 190, 'REWARD: $' + rewardMoney, 16)); 
+ this.g.add(createText(105, 190, 'REWARD: $' + this.rewardMoney, 16)); 
  this.g.add(createText(105, 230, 'START DATE (MONTH): ' + stats.month, 16)); 
  this.g.add(createText(395, 190, 'PUBLICITY: ' + this.rewardReputationStanding + '*', 16)); 
  var requirementsWords = '';
@@ -39,13 +43,13 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
    requirementsWords += ', ';
  }
  this.g.add(createText(105, 270, 'REQUIREMENTS: ' + requirementsWords, 16)); 
- this.g.add(createText(105, 305, description, 16)); 
+ this.g.add(createText(105, 305, this.description, 16)); 
  this.g.add(createButton(105, 437, 'button_whip', function() { this.gShip.visible = true; }, this, 1, 1, 0));
  this.g.add(createText(113, 444, 'SHIP', 16)); 
  this.g.add(createButton(195, 437, 'button_cancel', function() { this.gCancel.visible = true;}, this, 1, 1, 0));
  this.g.add(createText(208, 444, 'CANCEL', 16)); 
  this.g.visible = false;
- overlayGroups[name+description] = this.g; 
+ overlayGroups[this.name+this.description] = this.g; 
  
  // group for shipping unfinished project:
  this.gShip = game.add.group(); 
@@ -87,25 +91,23 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.gCancel.visible = false;
  
  // initializes main project button and text
- var button = createButton(posX[place]-8, posY[place], 'button_project', function() { this.display(); }, this, 1, 1, 0);
- var text = createText(posX[place], posY[place]+10, name, 16);
+ this.all = game.add.group();
+ this.all.add(createButton(posX[place]-8, posY[place], 'button_project', function() { this.display(); }, this, 1, 1, 0));
+ this.all.add(createText(posX[place], posY[place]+10, this.name, 16));
+ this.monthsIndicator = this.all.add(createText(posX[place]+215, posY[place]+35, '' + this.monthsLeft, 16));
 
  // various points variables
- this.capacity = height*width;
- this.width = width;
- this.height = height;
+ this.capacity = this.height*this.width;
  this.points = 0;
  this.assigned = -1;
- 
- this.all = game.add.group();
- this.all.add(button); 
- this.all.add(text);
+ this.done = false;
+ this.readyToCount = false;
  
  // initializes background for points
  for(var i = this.requirements.length-1; i >= 0; i--) {
-  var bd = game.add.bitmapData(width, height);
+  var bd = game.add.bitmapData(this.width, this.height);
   bd.ctx.beginPath();
-  bd.ctx.rect(i*this.cellWidth, 0, this.cellWidth, height);
+  bd.ctx.rect(i*this.cellWidth, 0, this.cellWidth, this.height);
   bd.ctx.fillStyle = '#000000';
   bd.ctx.fill();
   this.backgroundSprite = createSprite(posX[place], posY[place]+30, bd);
@@ -113,7 +115,6 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
   this.all.add(this.backgroundSprite);
  }
  
- this.done = false;
 }
 
 Project.prototype.display = function() {
@@ -151,6 +152,11 @@ Project.prototype.finished = function() {
  stats.reputationStanding += Math.floor(this.rewardReputationStanding * (Math.floor(Math.random() * 2.5) + 1));
  stats.update();
  this.removeFromLists();
+}
+
+Project.prototype.decMonth = function() {
+ this.monthsLeft--;
+ this.monthsIndicator.setText(''+this.monthsLeft);
 }
 
 Project.prototype.removeFromLists = function() {

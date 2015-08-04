@@ -13,7 +13,7 @@ Game.prototype = {
   game.load.spritesheet('button_cancel', 'assets/button_cancel.png', 30, 7);
   game.load.spritesheet('button_cancel_long', 'assets/button_cancel_long.png', 40, 7);
   game.load.spritesheet('button_project', 'assets/button_project.png', 64, 16);
-  game.load.spritesheet('button_project_select', 'assets/button_project_select.png', 75, 7);
+  game.load.spritesheet('button_project_select', 'assets/button_project_select.png', 69, 7);
   game.load.spritesheet('button_bottom_ui', 'assets/button_bottom_ui.png', 45, 8);
   game.load.spritesheet('button_stats', 'assets/button_stats.png', 59, 33);
   game.load.spritesheet('button_allow', 'assets/allow_spritesheet.png', 7, 7);
@@ -34,7 +34,7 @@ Game.prototype = {
   projects.push(null);
 
   new Developer(0);
-  new Developer(1);
+  new Developer(2);
   
   newProject = new NewProject();
   

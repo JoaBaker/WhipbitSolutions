@@ -28,6 +28,14 @@ Stats.prototype.incMonth = function() {
  this.money -= this.expences;
  this.reputation += this.reputationStanding;
  this.reputationStanding += this.reputationStanding>0?(-1-Math.floor(this.reputationStanding/10)):(1+Math.floor(-this.reputationStanding/15))
+ for(var i = 0; i < projects.length; i++) {
+  if(projects[i] == null)
+   continue;
+  if(projects[i].readyToCount)
+   projects[i].decMonth();
+  else
+   projects[i].readyToCount = true;
+ }
  this.update();
 }
 

@@ -5,6 +5,7 @@
   "skills":       ["JS", "PHP", "SQL"],
   "salary" :      100,
   "hire_fee":     200,
+  "description":  "Great at being average\nSuper cool",
   "skill_points": 2
  },
  {
@@ -13,6 +14,7 @@
   "skills":       ["Python", "Networking", "SQL"],
   "salary" :      100,
   "hire_fee":     0,
+  "description":  "Great at being average\nSuper cool",
   "skill_points": 1
  },
  {
@@ -21,6 +23,7 @@
   "skills":       ["CSS", "HTML5"],
   "salary" :      200,
   "hire_fee":     300,
+  "description":  "Great at being average\nSuper cool",
   "skill_points": 3
  },
  {
@@ -29,6 +32,7 @@
   "skills":       [".NET", "Python", "Networking", "SQL"],
   "salary" :      300,
   "hire_fee":     500,
+  "description":  "Great at being average\nSuper cool",
   "skill_points": 0
  },
  {
@@ -37,6 +41,7 @@
   "skills":       ["JS"],
   "salary" :      250,
   "hire_fee":     400,
+  "description":  "Great at being average\nSuper cool",
   "skill_points": 2
  }
 ]
