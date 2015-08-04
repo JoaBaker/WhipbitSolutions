@@ -23,7 +23,7 @@ NewProject = function() {
   windowOverlaySwitch(-1);
  }, this, 1, 1, 0));
  this.buttonAcceptText = this.g.add(createText(522, 112, 'ACCEPT', 16));
- this.unavailableText = this.g.add(createText(470, 112, 'SKILLS MISSING', 16));
+ this.unavailableText = this.g.add(createText(450, 112, 'SKILLS MISSING', 16));
  this.g.visible = false;
  overlayGroups['newproject'] = this.g;
 

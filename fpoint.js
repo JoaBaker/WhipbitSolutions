@@ -1,5 +1,5 @@
-var FPoint = function (posX, posY, project) {
- var target = project.getPosition();
+var FPoint = function (posX, posY, target, project) {
+ var target = target;
  this.targetX = target[0];
  this.targetY = target[1];
  this.project = project;

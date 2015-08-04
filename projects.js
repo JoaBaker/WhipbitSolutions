@@ -10,6 +10,10 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.name = name;
  this.projectAssigment = projectAssigment;
  this.requirements = projectAssigment['requirements'];
+ this.cellWidth = width/this.requirements.length;
+ this.cells = {};
+ for(var i = 0; i < this.requirements.length; i++)
+  this.cells[this.requirements[i]] = this.cellWidth*height;
 
  var place = 0;
  for(; place < projects.length; place++)
@@ -85,15 +89,6 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  // initializes main project button and text
  var button = createButton(posX[place]-8, posY[place], 'button_project', function() { this.display(); }, this, 1, 1, 0);
  var text = createText(posX[place], posY[place]+10, name, 16);
- 
- // initializes background for points
- var bd = game.add.bitmapData(width, height);
- bd.ctx.beginPath();
- bd.ctx.rect(0, 0, width, height);
- bd.ctx.fillStyle = '#000000';
- bd.ctx.fill();
- this.backgroundSprite = createSprite(posX[place], posY[place]+30, bd);
- this.backgroundSprite.alpha = 0.1;
 
  // various points variables
  this.capacity = height*width;
@@ -105,7 +100,18 @@ var Project = function (width, height, name, description, rewardMoney, rewardRep
  this.all = game.add.group();
  this.all.add(button); 
  this.all.add(text);
- this.all.add(this.backgroundSprite);
+ 
+ // initializes background for points
+ for(var i = this.requirements.length-1; i >= 0; i--) {
+  var bd = game.add.bitmapData(width, height);
+  bd.ctx.beginPath();
+  bd.ctx.rect(i*this.cellWidth, 0, this.cellWidth, height);
+  bd.ctx.fillStyle = '#000000';
+  bd.ctx.fill();
+  this.backgroundSprite = createSprite(posX[place], posY[place]+30, bd);
+  this.backgroundSprite.alpha = 0.1+i*0.05;
+  this.all.add(this.backgroundSprite);
+ }
  
  this.done = false;
 }
@@ -119,11 +125,16 @@ Project.prototype.display = function() {
  windowOverlaySwitch(this.name+this.description);
 }
 
-Project.prototype.getPosition = function() {
+Project.prototype.getPosition = function(type) {
+ if(this.cells[type] <= 0) {
+  return 'one';
+ }
  this.assigned++;
+ this.cells[type]--;
  if(this.assigned +1 == this.capacity)
   this.done = true;
- return [(this.assigned % this.width) * 4 + this.backgroundSprite.x, Math.floor(this.assigned/this.width) * 4 + this.backgroundSprite.y];
+ return [((this.cellWidth*this.height - this.cells[type] -1) % this.cellWidth + this.requirements.indexOf(type)*this.cellWidth) * 4 + this.backgroundSprite.x,
+         Math.floor((this.cellWidth*this.height - this.cells[type]-1)/this.cellWidth) * 4 + this.backgroundSprite.y];
 }
 
 Project.prototype.arrived = function(fpoint) {

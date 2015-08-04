@@ -65,6 +65,7 @@ var Developer = function(id) {
  this.timer.start(); 
  
  this.projects = [];
+ this.projectSkills = [];
 
  for(var i = 0; i < this.skills.length; i++) {
   for(var j = 0; j < allSkills.length; j++) {
@@ -83,17 +84,29 @@ Developer.prototype.develop = function() {
 Developer.prototype.updateLoader = function() {
  while(this.projects.length != 0) {
   var i = Math.floor(Math.random() * this.projects.length);
-  if(this.projects[i].done) {
-   this.projects.splice(i, 1);
+  var project = this.projects[i];
+  if(project.done) {
+   this.removeProject(project);
    this.fPointLoaderProgress = 16;
    this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
    continue;
   }
- 
+
   this.fPointLoaderProgress -= this.motivation/20 + .3 + this.speed/50;
   if(this.fPointLoaderProgress <= 0) {
-   // add some fun to play crap about player xp; im tired; night
-   new FPoint(this.posX+65, this.posY, this.projects[i]); 
+   var aptSkills = this.projectSkills[i];
+   for(var j = 0; j < aptSkills.length; j++) {
+    if(project.cells[aptSkills[j]] <= 0)  {
+     aptSkills.splice(j, 1);
+    }
+   }
+   if(aptSkills.length == 0) {
+    this.removeProject(project);
+    continue;
+   }
+   var skill = aptSkills[Math.floor(Math.random()*aptSkills.length)];
+   var target = project.getPosition(skill);
+   new FPoint(this.posX+65, this.posY, target, project); 
    this.fPointLoaderProgress = 16;
    this.incExp(0.5+1/this.level);
   }
@@ -117,24 +130,28 @@ Developer.prototype.incMotivation = function() {
 Developer.prototype.tryAddProject = function(project) {
  if(this.projects.indexOf(project) != -1)
   return false;
- for(var i = 0; i < project.projectAssigment['requirements'].length; i++) {
-  var found = false;
-  for(var j = 0; j < this.skills.length; j++) {
-   if(project.projectAssigment['requirements'][i] == this.skills[j]) {
-    found = true;
-    break;
-   } 
-  }
-  if(!found) {
-   return false;
+ 
+ var cells = project.cells;
+ var found = false;
+ for(var k in cells) {
+  if(cells[k] > 0 && this.skills.indexOf(k) != -1) {
+   found = true;
+   break
   }
  }
+ if(!found)
+  return false;
  
  this.projects.push(project);
+ this.projectSkills.push([]);
+ for(var i = 0; i < project.requirements.length; i++)
+  if(this.skills.indexOf(project.requirements[i]) != -1)
+   this.projectSkills[this.projectSkills.length-1].push(project.requirements[i]);
  return true;
 }
 
 Developer.prototype.removeProject = function(project) {
+ this.projectSkills.splice(this.projects.indexOf(project), 1);
  this.projects.splice(this.projects.indexOf(project), 1);
  this.fPointLoaderProgress = 16;
  this.fPointLoader.scale.setTo(Math.floor(this.fPointLoaderProgress)*4, 4);
@@ -153,5 +170,5 @@ Developer.prototype.incLevel = function() {
  stats.salaries += this.level * 20;
  this.level ++;
  this.skillPoints++;
- this.speed+=Math.floor(Math.random()*3)+1;
+ this.speed+=Math.floor(Math.random()*2)+1;
 }

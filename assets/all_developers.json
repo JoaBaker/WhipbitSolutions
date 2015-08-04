@@ -13,6 +13,30 @@
   "skills":       ["Python", "Networking", "SQL"],
   "salary" :      100,
   "hire_fee":     0,
-  "skill_points": 4
+  "skill_points": 1
+ },
+ {
+  "name":         "Moran",
+  "speed":        14,
+  "skills":       ["CSS", "HTML5"],
+  "salary" :      200,
+  "hire_fee":     300,
+  "skill_points": 3
+ },
+ {
+  "name":         "Brennan",
+  "speed":        7,
+  "skills":       [".NET", "Python", "Networking", "SQL"],
+  "salary" :      300,
+  "hire_fee":     500,
+  "skill_points": 0
+ },
+ {
+  "name":         "Hewitt",
+  "speed":        20,
+  "skills":       ["JS"],
+  "salary" :      250,
+  "hire_fee":     400,
+  "skill_points": 2
  }
 ]
