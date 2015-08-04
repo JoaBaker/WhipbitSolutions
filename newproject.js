@@ -19,7 +19,7 @@ NewProject = function() {
   var nProject = new Project(curProject);
   for(var i = 0; i < developers.length; i++)
    developers[i].tryAddProject(nProject);
-  this.unlockRandom(0.4);
+  this.unlockRandom(0.05, true);
   windowOverlaySwitch(-1);
  }, this, 1, 1, 0));
  this.buttonAcceptText = this.g.add(createText(522, 112, 'ACCEPT', 16));
@@ -38,13 +38,17 @@ NewProject.prototype.replace = function(place) {
  projects[place] = null;
 
  var button = createButton(posX[place]-8, posY[place], 'button_project', function(b) {
-  this.currentN = 1;
-  this.update();
-  lastProjectLocation = b.place;
-  windowOverlaySwitch('newproject');
+  this.display(b);
  }, this, 1, 1, 0);
  button.place = place;
  var text = createText(posX[place]+65, posY[place]+40, 'NEW PROJECT', 16);
+}
+
+NewProject.prototype.display = function(b) {
+ this.currentN = 1;
+ this.update();
+ lastProjectLocation = b.place; 
+ windowOverlaySwitch('newproject');
 }
 
 NewProject.prototype.showNext = function(off) {
@@ -155,7 +159,7 @@ NewProject.prototype.unlock = function(i) {
  this.allProjects[i]['active'] = true;
 }
 
-NewProject.prototype.unlockRandom = function(odds) {
+NewProject.prototype.unlockRandom = function(odds, indicate) {
  if(Math.random() > 0.9) {
   this.availableProjects.splice(Math.floor(Math.random() * this.availableProjects.length), 1);
  }
@@ -173,8 +177,9 @@ NewProject.prototype.unlockRandom = function(odds) {
   if(project['level'].indexOf(studio.level) != -1 &&
   (typeof(project['active']) == 'undefined' || !project['active']) &&
   (typeof(project['date_finished']) == 'undefined' || stats.month - project['date_finished'] > 10)) {
-   if(Math.random() > 0.7 || requirementsMatch(project['requirements'])) {
+   if(Math.random() > 0.8 || requirementsMatch(project['requirements'])) {
     this.unlock(this.allProjects.indexOf(project));
+    if(indicate) indicators.newProject();
     return;
    }
   }

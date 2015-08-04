@@ -160,14 +160,18 @@ HireDev.prototype.lock = function(index) {
  if(v != -1) availableDevelopers.splice(v, 1);
 }
 
-HireDev.prototype.randomHire = function() {
+HireDev.prototype.randomHire = function(indicate) {
+ if(developers.length >= studio.capacity)
+  return;
  // do some more calculations in relations with salary and hire fee
  for(var i = 0; i < 2; i++) {
   if(Math.random() > 0.40-stats.reputation/90 + availableDevelopers.length/14) {
    // 10 attempts
    for(var j = 0; j < 10; j++) {
-    if(this.unlock(Math.floor(Math.random() * allDevelopers.length) ))
+    if(this.unlock(Math.floor(Math.random() * allDevelopers.length) )) {
+     if(indicate) indicators.newDev();
      break;
+    }
    }
   } else if(Math.random() > 0.5) {
    this.lock(Math.floor(Math.random() * availableDevelopers.length));
