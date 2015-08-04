@@ -30,6 +30,7 @@ var Developer = function(id) {
  // initializes whip button & text
  this.g.add(createButton(this.posX+25, this.posY+200, 'button_whip', this.incMotivation, this, 1, 1, 0));
  this.g.add(createText(this.posX+34, this.posY+207, 'WHIP', 16));
+ this.g.add(createText(this.posX+30, this.posY-10, this.name, 14)).align='center';
 
  // initializes background loader graphics
  var boundary = game.add.bitmapData(64, 4);
@@ -61,7 +62,7 @@ var Developer = function(id) {
  this.g.add(mb);
 
  this.timer = createTimer(false);
- this.timer.loop(50, this.develop, this);
+ this.timer.loop(70, this.develop, this);
  this.timer.start(); 
  
  this.projects = [];
@@ -92,7 +93,7 @@ Developer.prototype.updateLoader = function() {
    continue;
   }
 
-  this.fPointLoaderProgress -= this.motivation/20 + .3 + this.speed/50;
+  this.fPointLoaderProgress -= this.motivation/40 + .23 + this.speed/70;
   if(this.fPointLoaderProgress <= 0) {
    var aptSkills = this.projectSkills[i];
    for(var j = 0; j < aptSkills.length; j++) {
@@ -116,12 +117,12 @@ Developer.prototype.updateLoader = function() {
 }
 
 Developer.prototype.updateMotivation = function() {
- if(this.motivation > 1) this.motivation -= 0.02;
+ if(this.motivation > 1) this.motivation -= 0.04;
  this.motivationSlider.scale.setTo(Math.floor(this.motivation)*4, 4);
 }
 
 Developer.prototype.incMotivation = function() {
- this.motivation += .8;
+ this.motivation += 1;
  if(this.motivation > 16) this.motivation = 16.12; 
  else this.incExp(0.1);
  this.updateMotivation();

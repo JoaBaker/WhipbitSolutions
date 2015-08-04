@@ -13,5 +13,8 @@ function createButton(x, y, name, func, context, s1, s2, s3) {
 }
 
 function createText(x, y, text, size) {
- return game.add.bitmapText(x, y, 'visitor2', text, size); 
+ var text = game.add.bitmapText(x, y, 'visitor2', text, size); 
+ text.scale.setTo(size/16, size/16);
+ text.smoothed = false;
+ return text;
 }

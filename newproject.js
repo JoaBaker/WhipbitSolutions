@@ -183,21 +183,17 @@ NewProject.prototype.unlockRandom = function(odds) {
 }
 
 function requirementsMatch(skills) {
- for(var d = 0; d < developers.length; d++) {
-  var all = true;
-  for(var i = 0; i < skills.length; i++) {
-   var found = false;
-   for(var j = 0; j < developers[d].skills.length; j++) {
-    if(skills[i] == developers[d].skills[j]) {
-     found = true;
-     break;
-    } 
+ for(var i = 0; i < skills.length; i++) {
+  var found = false;
+  for(var j = 0; j < developers.length; j++) {
+   if(developers[j].skills.indexOf(skills[i]) != -1) {
+    found = true;
+    break;
    }
-   if(!found)
-    all = false;
   }
-  if(all)
-   return true;
+  if(!found)
+   return false;
  }
- return false;
+ 
+ return true;
 }

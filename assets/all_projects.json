@@ -3,7 +3,7 @@
   "title": "STATIC WEBSITE",
   "description": "I need a website with (mostly)\nstatic content where I can share\nmy art.",
   "requirements": ["JS", "CSS"],
-  "length":11,
+  "length":10,
   "publicity":3,
   "reward":200,
   "level":[1, 2, 3]
@@ -57,7 +57,7 @@
   "title": "WEB DEBUGGING",
   "description": "We need to present our website\nsoon. It's finished,\nbut we're too exhausted to debug it.",
   "requirements": ["HTML5", "JS"],
-  "length":9,
+  "length":10,
   "publicity":4,
   "reward":360,
   "level":[1, 2, 3]
@@ -66,7 +66,7 @@
   "title": "SERVER FIX",
   "description": "Something went wrong with our\nservers and to be frank,\nwe have no idea what!",
   "requirements": ["PHP"],
-  "length":17,
+  "length":18,
   "publicity":6,
   "reward":1300,
   "level":[1, 2, 3]
@@ -93,7 +93,7 @@
   "title": "SALES MANAGEMENT",
   "description": "We'd like to have some program\nthat can connect to\nour sales database.",
   "requirements": [".NET", "SQL"],
-  "length":11,
+  "length":12,
   "publicity":3,
   "reward":1000,
   "level":[1, 2, 3]
@@ -179,6 +179,4 @@
   "reward":       5200,
   "level":        [2, 3]
  }
-
-
 ]
