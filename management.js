@@ -54,8 +54,7 @@ ManagementMenu.prototype.update = function() {
   this.devs.add(createText(posX[i]+10, posY[i]+40, 'Salary: $' + developers[i].salary, 16));
  }
  if(developers.length < studio.capacity) {
-  var button = this.devs.add(createButton(posX[i], posY[i], 'button_project', function(b) { this.displayDev(b.i); }, this, 1,1,0));
-  button.i = -1;
+  var button = this.devs.add(createButton(posX[i], posY[i], 'button_project', function(b) { hireDev.display(); }, this, 1,1,0));
   this.devs.add(createText(posX[i]+175, posY[i]+40, 'HIRE', 16));
  } else {
   this.devs.add(createText(105, 444, 'Your office is full', 16));
@@ -63,8 +62,6 @@ ManagementMenu.prototype.update = function() {
 }
 
 ManagementMenu.prototype.displayDev = function(i) {
- if(i == -1)
-  return;
  this.gDev = game.add.group(); 
  var developer = developers[i];
  this.gDev.add(createButton(0, 0, 'window_background', function() {}, 0, 0, 0));

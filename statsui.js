@@ -37,6 +37,8 @@ Stats.prototype.incMonth = function() {
    projects[i].readyToCount = true;
  }
  this.update();
+ if(this.money < 0)
+  console.log('GONE BAKRUPT');
 }
 
 Stats.prototype.update = function() {

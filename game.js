@@ -26,7 +26,10 @@ Game.prototype = {
   studio = new Studio();
   stats = new Stats();
   new BottomUI();
+  availableDevelopers = [];
   allDevelopers = game.cache.getJSON('all_developers');
+  availableDevelopers.push(allDevelopers[0]);
+  hireDev = new HireDev();
 
   projects.push(null);
   projects.push(null);
@@ -34,7 +37,6 @@ Game.prototype = {
   projects.push(null);
 
   new Developer(0);
-  new Developer(2);
   
   newProject = new NewProject();
   
@@ -57,7 +59,7 @@ var stats, newProject, studio;
 var windowOverlay;
 var developers = [], projects = [];
 var background;
-var allDevelopers;
+var allDevelopers, availableDevelopers;
 
 var timers = [];
 function pause(b) {
