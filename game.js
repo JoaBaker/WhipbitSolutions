@@ -48,8 +48,8 @@ Game.prototype = {
   newProject.replace(2);
   newProject.replace(3);
   
-  newProject.unlockRandom(1, false);
-  newProject.unlockRandom(0.5, false);
+  newProject.unlockRandom(2, false);
+  newProject.unlockRandom(2, false);
  
   var timer = createTimer(false);
   timer.loop(12000, function() { newProject.unlockRandom(0.25, true); }, this);

@@ -177,7 +177,7 @@ NewProject.prototype.unlockRandom = function(odds, indicate) {
   if(project['level'].indexOf(studio.level) != -1 &&
   (typeof(project['active']) == 'undefined' || !project['active']) &&
   (typeof(project['date_finished']) == 'undefined' || stats.month - project['date_finished'] > 10)) {
-   if(Math.random() > 0.8 || requirementsMatch(project['requirements'])) {
+   if((odds != 2 && Math.random() > 0.8) || requirementsMatch(project['requirements'])) {
     this.unlock(this.allProjects.indexOf(project));
     if(indicate) indicators.newProject();
     return;
