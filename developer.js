@@ -175,5 +175,5 @@ Developer.prototype.incLevel = function(indicate) {
  this.level ++;
  this.skillPoints++;
  this.speed+=Math.floor(Math.random()*2)+1;
- if(indicate) indicators.devLvlUp(this.name);
+ if(indicate) indicators.devLvlUp(developers.indexOf(this));
 }

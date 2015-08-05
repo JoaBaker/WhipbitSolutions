@@ -54,7 +54,7 @@ ManagementMenu.prototype.update = function() {
   this.devs.add(createText(posX[i]+10, posY[i]+40, 'Salary: $' + developers[i].salary, 16));
  }
  if(developers.length < studio.capacity) {
-  var button = this.devs.add(createButton(posX[i], posY[i], 'button_project', function(b) { hireDev.display(); }, this, 1,1,0));
+  var button = this.devs.add(createButton(posX[i], posY[i], 'button_project', function(b) { hireDev.display(1, false); }, this, 1,1,0));
   this.devs.add(createText(posX[i]+175, posY[i]+40, 'HIRE', 16));
  } else {
   this.devs.add(createText(105, 444, 'Your office is full', 16));
@@ -79,7 +79,7 @@ this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i)
  this.gDev.add(createText(114, 444, 'FIRE', 16));  
  this.gDev.add(createButton(195, 437, 'button_cancel_long', function() { this.promoteDev(i); }, this, 1, 1, 0));
  this.gDev.add(createText(223, 444, 'PROMOTE', 16));  
- this.gDev.add(createButton(365, 437, 'button_cancel', function() { this.skillsDev(i); }, this, 1, 1, 0));
+ this.gDev.add(createButton(365, 437, 'button_cancel', function() { this.skillsDev(i, false); }, this, 1, 1, 0));
  this.gDev.add(createText(378, 444, 'SKILLS', 16));  
 
  var posY = [270, 310, 350, 390];
@@ -113,7 +113,7 @@ this.gDev.add(createButton(105, 437, 'button_whip', function() { this.fireDev(i)
  this.gDev.visible = true;
 }
 
-ManagementMenu.prototype.buySkill = function(i, skill) {
+ManagementMenu.prototype.buySkill = function(i, skill, q) {
  this.gDevSkillBuy = game.add.group(); 
  var developer = developers[i];
  this.gDevSkillBuy.add(createButton(0, 0, 'window_alert_background', function() {}, 0, 0, 0));
@@ -125,7 +125,7 @@ ManagementMenu.prototype.buySkill = function(i, skill) {
    developer.skillPoints -= skill[1];
    this.gDevSkillBuy.destroy(true);
    this.gDevSkills.destroy(true);
-   this.skillsDev(i);
+   this.skillsDev(i, q);
   }, this, 1, 1, 0));
   this.gDevSkillBuy.add(createText(285, 344, 'YES', 16)); 
  } else {
@@ -138,7 +138,9 @@ ManagementMenu.prototype.buySkill = function(i, skill) {
  this.gDevSkillBuy.visible = true;
 }
 
-ManagementMenu.prototype.skillsDev = function(i) {
+ManagementMenu.prototype.skillsDev = function(i, p) {
+ if(p)
+  pause(true);
  this.gDevSkills = game.add.group(); 
  var developer = developers[i];
  this.gDevSkills.add(createButton(0, 0, 'window_background', function() {}, 0, 0, 0));
@@ -146,7 +148,7 @@ ManagementMenu.prototype.skillsDev = function(i) {
  
  for(var j = 0; j < allSkillsAvailable.length; j++) {
   if(developer.skills.indexOf(allSkillsAvailable[j][0]) == -1) {
-   var skillButton = this.gDevSkills.add(createButton(105+Math.floor(j/8)*195, 140+(j%8)*37, 'button_bottom_ui', function(b) { this.buySkill(i, b.skill); }, this, 1, 1, 0));
+   var skillButton = this.gDevSkills.add(createButton(105+Math.floor(j/8)*195, 140+(j%8)*37, 'button_bottom_ui', function(b) { this.buySkill(i, b.skill, p); }, this, 1, 1, 0));
    skillButton.skill = allSkillsAvailable[j];
   } else {
    this.gDevSkills.add(createButton(105+Math.floor(j/8)*195, 140+(j%8)*37, 'button_bottom_ui', function() { }, this, 0, 0, 0));
@@ -154,7 +156,11 @@ ManagementMenu.prototype.skillsDev = function(i) {
   this.gDevSkills.add(createText(114+Math.floor(j/8)*195, 148+(j%8)*37, allSkillsAvailable[j][0], 16));
  }
 
- this.gDevSkills.add(createButton(588, 437, 'button_whip', function() { this.gDevSkills.destroy(true); }, this, 1, 1, 0));
+ this.gDevSkills.add(createButton(588, 437, 'button_whip', function() {
+  this.gDevSkills.destroy(true);
+  if(p)
+   pause(false);
+ }, this, 1, 1, 0));
  this.gDevSkills.add(createText(597, 444, 'BACK', 16)); 
  
  this.gDevSkills.visible = true;

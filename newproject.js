@@ -14,8 +14,8 @@ NewProject = function() {
  this.buttonNextText = this.g.add(createText(327, 444, 'NEXT', 16));
  
  this.buttonAccept = this.g.add(createButton(478, 103, 'button_bottom_ui', function() {
-  var curProject = this.availableProjects[this.currentN-1];
-  this.availableProjects.splice(this.currentN-1, 1);
+  var curProject = availableProjects[this.currentN-1];
+  availableProjects.splice(this.currentN-1, 1);
   var nProject = new Project(curProject);
   for(var i = 0; i < developers.length; i++)
    developers[i].tryAddProject(nProject);
@@ -28,24 +28,20 @@ NewProject = function() {
  overlayGroups['newproject'] = this.g;
 
  this.currentN = 1;
- this.availableProjects = [];
- 
- // loads all projects
- this.allProjects = game.cache.getJSON('all_projects');
 }
 
 NewProject.prototype.replace = function(place) {
  projects[place] = null;
 
  var button = createButton(posX[place]-8, posY[place], 'button_project', function(b) {
-  this.display(b);
+  this.display(b, 1);
  }, this, 1, 1, 0);
  button.place = place;
  var text = createText(posX[place]+65, posY[place]+40, 'NEW PROJECT', 16);
 }
 
-NewProject.prototype.display = function(b) {
- this.currentN = 1;
+NewProject.prototype.display = function(b, cN) {
+ this.currentN = cN;
  this.update();
  lastProjectLocation = b.place; 
  windowOverlaySwitch('newproject');
@@ -62,7 +58,7 @@ NewProject.prototype.showNext = function(off) {
 }
 
 NewProject.prototype.update = function() {
- this.maxN = this.availableProjects.length;
+ this.maxN = availableProjects.length;
  this.projectsIndicator.setText(this.currentN + '/' + this.maxN);
  if(this.maxN == 0)  {
   this.projectsIndicator.visible = false;
@@ -80,7 +76,7 @@ NewProject.prototype.update = function() {
   this.buttonNextText.visible = false;
   this.unavailableText.visible = false;
  } else {
-  var curProject = this.availableProjects[this.currentN-1];
+  var curProject = availableProjects[this.currentN-1];
   
   this.projectsIndicator.visible = true;
   if(requirementsMatch(curProject['requirements'])) {
@@ -155,21 +151,21 @@ NewProject.prototype.update = function() {
 }
 
 NewProject.prototype.unlock = function(i) {
- this.availableProjects.push(this.allProjects[i]);
- this.allProjects[i]['active'] = true;
+ availableProjects.push(allProjects[i]);
+ allProjects[i]['active'] = true;
 }
 
 NewProject.prototype.unlockRandom = function(odds, indicate) {
- if(Math.random() > 0.9) {
-  this.availableProjects.splice(Math.floor(Math.random() * this.availableProjects.length), 1);
+ if(Math.random() > 1 - availableProjects.length/24) {
+  availableProjects.splice(Math.floor(Math.random() * availableProjects.length), 1);
  }
 
- var probability = 0.4+stats.reputation/200.0 - this.availableProjects.length/13.0;
+ var probability = 0.4+stats.reputation/200.0 - availableProjects.length/13.0;
  probability += odds;
  if(Math.random() > probability)
   return;
 
- var remProjects = this.allProjects.slice();
+ var remProjects = allProjects.slice();
  
  while(remProjects.length > 0) {
   var i = Math.floor(Math.random() * remProjects.length);
@@ -178,8 +174,8 @@ NewProject.prototype.unlockRandom = function(odds, indicate) {
   (typeof(project['active']) == 'undefined' || !project['active']) &&
   (typeof(project['date_finished']) == 'undefined' || stats.month - project['date_finished'] > 10)) {
    if((odds != 2 && Math.random() > 0.8) || requirementsMatch(project['requirements'])) {
-    this.unlock(this.allProjects.indexOf(project));
-    if(indicate) indicators.newProject();
+    this.unlock(allProjects.indexOf(project));
+    if(indicate) indicators.newProject(availableProjects.indexOf(project));
     return;
    }
   }
