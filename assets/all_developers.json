@@ -9,7 +9,7 @@
   "skill_points": 2
  },
  {
-  "name":         "Milton",
+  "name":         "Ferdinand",
   "speed":        7,
   "skills":       ["Python", "Networking", "SQL", ".NET", "JS"],
   "salary" :      700,
@@ -18,7 +18,7 @@
   "skill_points": 1
  },
  {
-  "name":         "Moran",
+  "name":         "Paul",
   "speed":        14,
   "skills":       ["JS", "CSS", "HTML5"],
   "salary" :      300,
@@ -27,7 +27,7 @@
   "skill_points": 3
  },
  {
-  "name":         "Brennan",
+  "name":         "Carl",
   "speed":        7,
   "skills":       [".NET", "Python", "Networking", "SQL"],
   "salary" :      300,
@@ -36,12 +36,84 @@
   "skill_points": 0
  },
  {
-  "name":         "Hewitt",
-  "speed":        20,
+  "name":         "Timmy",
+  "speed":        16,
   "skills":       ["JS"],
-  "salary" :      150,
+  "salary" :      350,
   "hire_fee":     100,
   "description":  "Can't do much right now,\nbut fast and\nwilling to learn.",
   "skill_points": 2
+ },
+ {
+  "name":         "Lucy",
+  "speed":        5,
+  "skills":       [],
+  "salary" :      250,
+  "hire_fee":     1000,
+  "description":  "Very slow\nGreat potential",
+  "skill_points": 10
+ },
+ {
+  "name":         "Elicia",
+  "speed":        10,
+  "skills":       ["OpenGL", "Games", "Java", "C/C++"],
+  "salary" :      450,
+  "hire_fee":     700,
+  "description":  "Sucker for games\nAverage speed",
+  "skill_points": 0
+ },
+ {
+  "name":         "Landen",
+  "speed":        16,
+  "skills":       [".NET"],
+  "salary" :      400,
+  "hire_fee":     100,
+  "description":  "Dumb, but super fast",
+  "skill_points": 1
+ },
+ {
+  "name":         "Edric",
+  "speed":        8,
+  "skills":       ["Ruby", "AJAX", "SQL", "Networking", "Perl", "TCP/IP", "Security"],
+  "salary" :      800,
+  "hire_fee":     1000,
+  "description":  "Server mastermind",
+  "skill_points": 0
+ },
+ {
+  "name":         "Donald",
+  "speed":        7,
+  "skills":       ["Assembly", "Algorithms", "Security", "C/C++"],
+  "salary" :      450,
+  "hire_fee":     1000,
+  "description":  "Can speak only in machine code",
+  "skill_points": 0
+ },
+ {
+  "name":         "Ken",
+  "speed":        8,
+  "skills":       ["C/C++"],
+  "salary" :      750,
+  "hire_fee":     500,
+  "description":  "Willing to learn",
+  "skill_points": 5
+ },
+ {
+  "name":         "James",
+  "speed":        8,
+  "skills":       ["Java", "Web Design", "Servers"],
+  "salary" :      550,
+  "hire_fee":     1000,
+  "description":  "Grey hat hacker",
+  "skill_points": 1
+ },
+ {
+  "name":         "Guido",
+  "speed":        12,
+  "skills":       ["Python", "SQL", "Networking", "Security"],
+  "salary" :      550,
+  "hire_fee":     200,
+  "description":  "Black hat hacker",
+  "skill_points": 0
  }
 ]
