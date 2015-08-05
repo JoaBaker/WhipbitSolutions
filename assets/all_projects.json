@@ -198,5 +198,15 @@
   "reward":       6200,
   "time":         5,
   "level":        [2, 3]
+ },
+ {
+  "title":        "ACCOUNT CRACK",
+  "description":  "My ex is a dick and I want\nto get into his\nFacebook account.\nI'll pay a lot.",
+  "requirements": ["Security", "Perl"],
+  "length":       10,
+  "publicity":    -9,
+  "reward":       3500,
+  "time":         4,
+  "level":        [1, 2, 3]
  }
 ]
