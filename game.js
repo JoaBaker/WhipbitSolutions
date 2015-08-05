@@ -24,7 +24,15 @@ Game.prototype = {
  create : function() {
   developers = [];
   projects = [];
+  availableProjects = [];
   availableDevelopers = [];
+  allProjects = game.cache.getJSON('all_projects');
+  allDevelopers = game.cache.getJSON('all_developers');
+  for(var i = 0; i < allDevelopers.length; i++) {
+   allDevelopers[i].id = i;
+   allDevelopers[i].active = false;
+  }
+
   createSprite(0, 0, 'ui_background');
   background = createSprite(0, 148, 'level_1');
   stats = new Stats();
@@ -62,7 +70,7 @@ var stats, newProject, studio, indicators;
 var windowOverlay;
 var developers, projects;
 var background;
-var allDevelopers, availableDevelopers;
+var allDevelopers, availableDevelopers, allProjects, availableProjects;
 
 var timers = [];
 function pause(b) {

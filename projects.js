@@ -90,6 +90,21 @@ var Project = function (projectAssigment) {
  this.g.add(this.gCancel);
  this.gCancel.visible = false;
  
+ // group for failing in completing the project:
+ this.gFail = game.add.group(); 
+ this.gFail.add(createButton(0, 0, 'window_alert_background', function() {}, 0, 0, 0));
+ this.gFailText = this.gFail.add(createText(240,240,'', 16)); 
+ this.gFail.add(createButton(340, 337, 'button_whip', function() {
+  this.done = true;
+  this.g.visible = false;
+  this.gFail.destroy(true);
+  this.all.destroy(true);
+  this.removeFromLists();
+  pause(false);
+ }, this, 1, 1, 0));
+ this.gFail.add(createText(360, 344, 'OK', 16)); 
+ this.gFail.visible = false;
+ 
  // initializes main project button and text
  this.all = game.add.group();
  this.all.add(createButton(posX[place]-8, posY[place], 'button_project', function() { this.display(); }, this, 1, 1, 0));
@@ -158,13 +173,27 @@ Project.prototype.finished = function() {
 Project.prototype.decMonth = function() {
  this.monthsLeft--;
  this.monthsIndicator.setText(''+this.monthsLeft);
- if(this.monthsLeft <= 0)
-  console.log('deadline!!');
+ if(this.monthsLeft <= 0) {
+  pause(true);
+  var percentage = 0;
+  if(this.assigned > 0)
+   percentage = this.assigned/this.capacity*100;
+
+  var actuallReward = percentage/100*this.rewardMoney*Math.floor(Math.random() * 3 + 1);
+  this.gFailText.setText("You completed\n" + percentage + "% of the project.\n" + 
+  "\nWe will pay you $" + actuallReward);
+  this.gFailText.align = 'center';
+  stats.money += actuallReward;
+  stats.reputationStanding -= Math.floor(Math.abs(this.rewardReputationStanding / (Math.floor(Math.random() * 3) + 1)));
+  stats.update();
+  this.gFail.visible = true;
+ }
 }
 
 Project.prototype.removeFromLists = function() {
  this.projectAssigment['active'] = false;
  this.projectAssigment['date_finished'] = stats.month;
  delete windowOverlay[this.name + this.description];
+ this.g.destroy(true);
  newProject.replace(this.place);
 }

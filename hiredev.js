@@ -1,11 +1,4 @@
 HireDev = function() {
- // loads every developer into Game variable
- allDevelopers = game.cache.getJSON('all_developers');
- for(var i = 0; i < allDevelopers.length; i++) {
-  allDevelopers[i].id = i;
-  allDevelopers[i].active = false;
- }
- 
  this.g = game.add.group();
  this.g.add(createButton(0, 0, 'window_background', function() {}, this, 0, 0, 0));
  
@@ -23,7 +16,11 @@ HireDev = function() {
  this.devsIndicator = this.g.add(createText(213, 444, "0/0", 16));
  this.buttonNext = this.g.add(createButton(318, 437, 'button_whip', function() { this.showNext(1); }, this, 1, 1, 0));
  this.buttonNextText = this.g.add(createText(327, 444, 'NEXT', 16));
- this.g.add(createButton(588, 437, 'button_whip', function() { this.g.visible = false; }, this, 1, 1, 0));
+ this.g.add(createButton(588, 437, 'button_whip', function() {
+  this.g.visible = false;
+  if(this.pauseLater)
+   pause(false);
+ }, this, 1, 1, 0));
  this.g.add(createText(597, 444, 'BACK', 16));
  
  this.placeholderTable = this.g.add(createSprite(521, 249, 'placeholder_table'));
@@ -52,8 +49,11 @@ HireDev.prototype.showNext = function(off) {
  this.update();
 }
 
-HireDev.prototype.display = function() {
- this.currentN = 1;
+HireDev.prototype.display = function(cN, pauseLater) {
+ if(pauseLater)
+  pause(true);
+ this.currentN = cN;
+ this.pauseLater = pauseLater;
  this.update();
  this.g.visible = true;
  game.world.bringToTop(this.g);
@@ -136,9 +136,13 @@ HireDev.prototype.update = function() {
 
  var skillsWords = '';
  var skillsList = curDev['skills'];
+ var acc = 0;
  for(var i = 0; i < skillsList.length; i++) {
-  if(skillsWords.length + skillsList[i].length > 30)
+  if(acc + skillsList[i].length > 29) {
    skillsWords += '\n';
+   acc = 0;
+  }
+  acc += skillsList[i].length + 2;
   skillsWords += skillsList[i];
   if(i != skillsList.length -1)
    skillsWords += ', ';
@@ -168,12 +172,13 @@ HireDev.prototype.randomHire = function(indicate) {
   if(Math.random() > 0.40-stats.reputation/90 + availableDevelopers.length/14) {
    // 10 attempts
    for(var j = 0; j < 10; j++) {
-    if(this.unlock(Math.floor(Math.random() * allDevelopers.length) )) {
-     if(indicate) indicators.newDev();
+    var newDevI = Math.floor(Math.random() * allDevelopers.length);
+    if(this.unlock(newDevI)) {
+     if(indicate) indicators.newDev(availableDevelopers.indexOf(allDevelopers[newDevI]));
      break;
     }
    }
-  } else if(Math.random() > 0.5) {
+  } else if(Math.random() > 0.4) {
    this.lock(Math.floor(Math.random() * availableDevelopers.length));
   }
  }
